@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>StackTrack — Poker Night Ledger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StackTrack simplifies poker night. Set buy-ins, track chips, and calculate payouts instantly—with all data stored on device.">
+  <link rel="canonical" href="https://candorsolutions.us/stacktrack/">
+  <!-- TODO: After app is live, uncomment and set your App Store app-id -->
+  <!-- <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID"> -->
+  <style>
+    :root {
+      --bg: #0f1222; --card:#161a2e; --muted:#8792a2; --text:#eef2ff; --accent:#6ee7b7; --accent2:#60a5fa;
+      --maxw: 1100px; --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text);}
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 24px; }
+    header { display:flex; align-items:center; gap:16px; padding:12px 0 24px; }
+    header img { width:40px; height:40px; border-radius:12px; }
+    nav { margin-left:auto; display:flex; gap:16px; }
+    .hero { display:grid; grid-template-columns: 1fr; gap:24px; background: linear-gradient(180deg,#141835, #0f1222); padding: 32px; border-radius: var(--radius); border:1px solid #23284a; }
+    .hero .hcols { display:grid; grid-template-columns: 1fr 1fr; gap:24px; }
+    .hero h1 { margin:.2rem 0 0; font-size: clamp(28px, 4vw, 44px); line-height:1.1; }
+    .tag { color:var(--muted); font-size: 1rem; }
+    .lead { font-size: 1.1rem; color:#cdd6f4; margin:8px 0 18px; }
+    .cta { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; background: var(--accent2); color:white; font-weight:600; border:0; cursor:pointer; }
+    .btn.secondary { background:#243145; color:#cfe1ff; border:1px solid #31415d; }
+    .card { background: var(--card); border:1px solid #23284a; border-radius: var(--radius); padding:20px; }
+    .features { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top:18px; }
+    .feature h3 { margin:.2rem 0 .4rem; font-size:1.05rem; }
+    .screens { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top:10px; }
+    .shot { aspect-ratio: 1179/2556; background:#0b0e1c; border:1px solid #23284a; border-radius: 18px; overflow:hidden; display:flex; justify-content:center; align-items:center; color:#6b7280; }
+    footer { margin:32px 0 10px; color:var(--muted); font-size:.95rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    @media (max-width: 900px) {
+      .hero .hcols { grid-template-columns: 1fr; }
+      .features, .screens { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="/stacktrack/assets/icon-1024.png" alt="StackTrack app icon" />
+      <strong>StackTrack</strong>
+      <nav>
+        <a href="/stacktrack/support">Support</a>
+        <a href="/stacktrack/privacy">Privacy</a>
+      </nav>
+    </header>
+
+    <section class="hero card">
+      <div class="hcols">
+        <div>
+          <div class="tag">Poker Night Ledger</div>
+          <h1>Settle buy-ins fast — fair payouts every time</h1>
+          <p class="lead">Add players, track buy-ins and chips, then get instant settlement suggestions at the end. All data stays on your device.</p>
+          <div class="cta">
+            <!-- Replace # with your App Store link once live -->
+            <a class="btn" href="#" aria-label="Download on the App Store">Download on the App Store</a>
+            <a class="btn secondary" href="/stacktrack/support">Contact Support</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">What StackTrack does</h3>
+          <ul style="margin:0; padding-left:18px; line-height:1.6">
+            <li>Quick setup: players, initial buy-in, chips per dollar</li>
+            <li>Track extra buy-ins during the game</li>
+            <li>Enter final chip counts and see who owes who</li>
+            <li>Local-only storage: no login, no ads, no tracking</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature card">
+          <h3>Easy Setup</h3>
+          <p class="tag">Add players, set buy-in amounts, define chip values.</p>
+        </div>
+        <div class="feature card">
+          <h3>Track Buy-Ins</h3>
+          <p class="tag">Add extra buy-ins on the fly—StackTrack handles the math.</p>
+        </div>
+        <div class="feature card">
+          <h3>Instant Settlement</h3>
+          <p class="tag">Enter final chips and get clear payout suggestions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2 style="margin-top:0">Screenshots</h2>
+      <div class="screens">
+        <!-- Replace the placeholders with your actual screenshot paths -->
+        <a class="shot" href="/stacktrack/assets/screen-setup-6.7.png"><img src="/stacktrack/assets/screen-setup-6.7.png" alt="Setup screen" style="width:100%"></a>
+        <a class="shot" href="/stacktrack/assets/screen-running-6.7.png"><img src="/stacktrack/assets/screen-running-6.7.png" alt="Running game screen" style="width:100%"></a>
+        <a class="shot" href="/stacktrack/assets/screen-results-6.7.png"><img src="/stacktrack/assets/screen-results-6.7.png" alt="Results & settlement screen" style="width:100%"></a>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="y"></span> Candor Solutions LLC</div>
+      <div>
+        <a href="/stacktrack/privacy">Privacy</a> •
+        <a href="/stacktrack/support">Support</a>
+      </div>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>
+
