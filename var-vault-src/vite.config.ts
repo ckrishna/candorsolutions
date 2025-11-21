@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -9,7 +10,8 @@ export default defineConfig(({ mode }) => {
     // It works regardless of whether the user visits '/var-vault' or '/var-vault/'
     base: '/var-vault/', 
     build: {
-      outDir: 'var-vault',
+      // Output to sibling directory named 'var-vault'
+      outDir: path.resolve(process.cwd(), '../var-vault'),
       emptyOutDir: true
     },
     server: {
