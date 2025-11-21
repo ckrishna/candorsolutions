@@ -5,9 +5,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react()],
-    // Use relative paths ('./') so assets are loaded relative to the index.html location.
-    // This fixes the issue where the app looks for /assets instead of /var-vault/assets.
-    base: './', 
+    // Explicitly setting the absolute path is the most robust way to handle subdirectory deployment.
+    // It works regardless of whether the user visits '/var-vault' or '/var-vault/'
+    base: '/var-vault/', 
     define: {
       'process.env.API_KEY': JSON.stringify(env.API_KEY || '')
     }
