@@ -18,7 +18,7 @@ function App() {
   const [myTeam, setMyTeam] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   
-  // Initialize GW from storage or bootstrap
+  // Initialize GW from storage or bootstrap - test
   const [currentGw, setCurrentGw] = useState(() => getCurrentStoredGameweek());
 
   const fetchData = async (gw: number) => {
