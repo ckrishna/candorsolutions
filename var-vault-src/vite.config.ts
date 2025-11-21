@@ -1,17 +1,16 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react()],
-    // Explicitly setting the absolute path is the most robust way to handle subdirectory deployment.
-    // It works regardless of whether the user visits '/var-vault' or '/var-vault/'
-    base: '/var-vault/', 
+    // Base URL for production - essential if deploying to a subdirectory named /var-vault/
+    base: '/var-vault/',
     build: {
-      // Output to sibling directory named 'var-vault'
-      outDir: path.resolve(process.cwd(), '../var-vault'),
+      // Simple string 'var-vault' ensures output goes to ./var-vault in the current project root
+      // avoiding permission issues with parent directories or path resolution errors.
+      outDir: 'var-vault',
       emptyOutDir: true
     },
     server: {
