@@ -1,16 +1,44 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
+  const cwd = process.cwd();
+  const env = loadEnv(mode, cwd, '');
+  
+  // Force absolute path resolution for the output directory
+  const outDir = path.resolve(cwd, 'var-vault');
+
+  // TRACING: Log environment details
+  console.log('==================================================');
+  console.log(' [VITE DIAGNOSTICS] Configuration Loading');
+  console.log(` [VITE DIAGNOSTICS] Current Working Dir: ${cwd}`);
+  console.log(` [VITE DIAGNOSTICS] Target Output Path:  ${outDir}`);
+  console.log('==================================================');
+
   return {
-    plugins: [react()],
-    // Base URL for production - essential if deploying to a subdirectory named /var-vault/
+    plugins: [
+      react(),
+      {
+        name: 'diagnostic-logger',
+        configResolved(config) {
+          console.log(` [VITE DIAGNOSTICS] Config Resolved.`);
+          console.log(` [VITE DIAGNOSTICS] Final outDir: ${config.build.outDir}`);
+          console.log(` [VITE DIAGNOSTICS] Base URL:     ${config.base}`);
+        },
+        buildStart() {
+          console.log(` [VITE DIAGNOSTICS] Build Process Started...`);
+        },
+        closeBundle() {
+          console.log(` [VITE DIAGNOSTICS] Bundle Closed. Files should be in: ${outDir}`);
+        }
+      }
+    ],
+    // Base URL for production
     base: '/var-vault/',
     build: {
-      // Simple string 'var-vault' ensures output goes to ./var-vault in the current project root
-      // avoiding permission issues with parent directories or path resolution errors.
-      outDir: 'var-vault',
+      // Use absolute path to ensure strict adherence to location
+      outDir: outDir,
       emptyOutDir: true
     },
     server: {
