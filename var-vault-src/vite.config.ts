@@ -8,6 +8,10 @@ export default defineConfig(({ mode }) => {
     // Explicitly setting the absolute path is the most robust way to handle subdirectory deployment.
     // It works regardless of whether the user visits '/var-vault' or '/var-vault/'
     base: '/var-vault/', 
+    build: {
+      outDir: '../var-vault',
+      emptyOutDir: true
+    },
     server: {
       proxy: {
         '/api-proxy': {
