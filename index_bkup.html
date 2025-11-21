@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Candor Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Candor Solutions — practical AI agents and applied ML services.">
+  <meta name="theme-color" content="#0f1222">
+  <style>
+    :root{
+      --bg:#0f1222; --panel:#151a2e; --line:#23284a; --soft:#9aa6b2; --text:#eef2ff;
+      --brand:#60a5fa; --mint:#6ee7b7; --maxw:980px; --r:16px
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--text)}
+    a{color:var(--brand); text-decoration:none} a:hover{text-decoration:underline}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:24px}
+    .nav{display:flex; align-items:center; gap:12px; padding:6px 0 18px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .brand img{width:32px; height:32px; border-radius:10px}
+    .hero{background:linear-gradient(180deg,#141835,#0f1222); border:1px solid var(--line); border-radius:var(--r); padding:28px; text-align:center}
+    .hero h1{margin:.3rem 0 .6rem; font-size:clamp(26px,4vw,40px)}
+    .muted{color:#cfd6ea}
+    .pill{display:inline-block; padding:6px 12px; border-radius:999px; background:#1b2342; border:1px solid #2a3863; color:#cfe1ff; font-size:.9rem}
+    .section{margin-top:18px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:22px}
+    .section h2{margin:.2rem 0 .8rem; font-size:1.15rem}
+    .cols{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .card{border:1px solid var(--line); border-radius:14px; padding:16px; background:#10152a}
+    .card h3{margin:.2rem 0 .4rem; font-size:1.05rem}
+    .soft{color:var(--soft)}
+    .cta{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px}
+    .btn{display:inline-block; padding:12px 16px; border-radius:12px; background:var(--brand); color:#fff; font-weight:600}
+    .btn.secondary{background:#243145; color:#cfe1ff; border:1px solid #31415d}
+    footer{margin:26px 0 8px; color:var(--soft); text-align:center}
+    @media (max-width:820px){ .cols{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- top -->
+    <div class="nav">
+      <div class="brand">
+        <!-- optional logo -->
+        <img src="/assets/candor-logo.png" alt="Candor Solutions">
+        <span>Candor Solutions</span>
+      </div>
+      <div style="margin-left:auto"><a href="#contact">Contact</a></div>
+    </div>
+
+    <!-- hero -->
+    <section class="hero">
+      <span class="pill">Applied AI & Agent Services</span>
+      <h1>Practical AI you can ship</h1>
+      <p class="muted">We design, build, and operate AI agents and RAG systems with guardrails, evaluation, and clear cost controls.</p>
+      <div class="cta">
+        <a class="btn" href="mailto:info@candorsolutions.us">Email Us</a>
+        <!--<a class="btn secondary" href="/stacktrack/">See StackTrack</a>-->
+      </div>
+    </section>
+
+    <!-- services -->
+    <section class="section" aria-labelledby="services">
+      <h2 id="services">Services</h2>
+      <div class="cols">
+        <div class="card">
+          <h3>Agent Platforms</h3>
+          <p class="soft">Versioned prompts, tool calling, safety/PII guardrails, and org multi-tenancy. Deployed on AWS/Azure with observability.</p>
+        </div>
+        <div class="card">
+          <h3>RAG Done Right</h3>
+          <p class="soft">Clean chunking, filtering, source prioritization, and caching. Deterministic “force refresh” paths for consistency.</p>
+        </div>
+        <div class="card">
+          <h3>Evaluation & QA</h3>
+          <p class="soft">LLM-as-judge, gold sets, regressions, and dashboards tied to latency and accuracy goals.</p>
+        </div>
+        <div class="card">
+          <h3>FinOps & Performance</h3>
+          <p class="soft">Token tracking, budgets/alerts, model routing, and throughput planning to meet SLAs without runaway costs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- contact -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+      <p class="soft">Tell us about your use case. We’ll propose a lightweight path to a measurable pilot.</p>
+      <div class="cta">
+        <a class="btn" href="mailto:info@candorsolutions.us">info@candorsolutions.us</a>
+      </div>
+    </section>
+
+    <footer>© <span id="y"></span> Candor Solutions LLC</footer>
+  </div>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
