@@ -5,9 +5,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, (process as any).cwd(), '');
   return {
     plugins: [react()],
-    base: './', // Use relative paths for subdirectory deployment
+    base: '/var-vault/', // Hardcoded to ensure assets load from the correct subdirectory
     define: {
-      // Ensure API_KEY is always a string
       'process.env.API_KEY': JSON.stringify(env.API_KEY || '')
     }
   }

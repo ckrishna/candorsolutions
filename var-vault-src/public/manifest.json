@@ -1,12 +1,12 @@
 {
   "short_name": "VAR Vault",
   "name": "VAR Vault",
-  "start_url": "./index.html",
+  "start_url": "/var-vault/",
   "display": "standalone",
   "background_color": "#37003c",
   "theme_color": "#37003c",
   "orientation": "portrait",
-  "scope": "./",
+  "scope": "/var-vault/",
   "icons": [
     {
       "src": "https://fantasy.premierleague.com/static/media/shirt_1-1.dfc5967f.webp",
