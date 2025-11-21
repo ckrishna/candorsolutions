@@ -1,10 +1,9 @@
 import React from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import type { Player, FinancialStanding, GameweekResult } from '../types';
-import { TrendingUp, Activity, Zap, Trophy, AlertCircle } from 'lucide-react';
+import type { FinancialStanding, GameweekResult } from '../types';
+import { Activity, Zap, Trophy, AlertCircle } from 'lucide-react';
 
 interface Props {
-  players: Player[];
   standings: FinancialStanding[];
   gameweeks: GameweekResult[];
 }

@@ -95,7 +95,7 @@ function App() {
       case Tab.TEAM:
         return <TeamView team={myTeam} />;
       case Tab.STATS:
-        return <StatsView players={MOCK_PLAYERS_DB} standings={standings} gameweeks={gameweekHistory} />;
+        return <StatsView standings={standings} gameweeks={gameweekHistory} />;
       case Tab.ASSISTANT:
         return <AssistantView standings={standings} players={MOCK_PLAYERS_DB} />;
       default:
