@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
     // It works regardless of whether the user visits '/var-vault' or '/var-vault/'
     base: '/var-vault/', 
     build: {
-      outDir: '../var-vault',
+      outDir: 'var-vault',
       emptyOutDir: true
     },
     server: {
