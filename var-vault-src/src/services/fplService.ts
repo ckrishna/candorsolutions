@@ -4,8 +4,8 @@ import { LEAGUE_SETTINGS, TEAMS } from '../constants';
 // Helper to generate random integer
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
 
-// Mock Managers (Friends)
-const MOCK_MANAGERS: Manager[] = [
+// Mock Managers (Friends) - Initial State
+const INITIAL_MANAGERS: Manager[] = [
   { id: 1, player_name: "You", entry_name: "Salah-vating", total_points: 0, rank: 0, last_rank: 0, event_total: 0, event_transfers_cost: 0, used_chips: [] },
   { id: 2, player_name: "John", entry_name: "Klopps and Robbers", total_points: 0, rank: 0, last_rank: 0, event_total: 0, event_transfers_cost: 0, used_chips: [] },
   { id: 3, player_name: "Sarah", entry_name: "No Kane No Gain", total_points: 0, rank: 0, last_rank: 0, event_total: 0, event_transfers_cost: 0, used_chips: [] },
@@ -43,93 +43,172 @@ export const MOCK_PLAYERS_DB: Player[] = Array.from({ length: 50 }).map((_, i) =
   return p;
 });
 
-export const getLeagueData = async (): Promise<{ standings: FinancialStanding[], gameweeks: GameweekResult[] }> => {
+// --- Persistence Logic ---
+const STORAGE_KEY = 'var_vault_data_v1';
+
+interface StoredData {
+  managers: Manager[];
+  gameweeks: GameweekResult[];
+  currentGw: number;
+}
+
+const loadFromStorage = (): StoredData => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  } catch (e) {
+    console.error("Failed to load from storage", e);
+  }
+  // Default state: GW 15
+  return {
+    managers: JSON.parse(JSON.stringify(INITIAL_MANAGERS)),
+    gameweeks: [],
+    currentGw: 15
+  };
+};
+
+const saveToStorage = (managers: Manager[], gameweeks: GameweekResult[], currentGw: number) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ managers, gameweeks, currentGw }));
+  } catch (e) {
+    console.error("Failed to save to storage", e);
+  }
+};
+
+// Initialize State from Storage
+const initialData = loadFromStorage();
+let cachedGameweeks: GameweekResult[] = initialData.gameweeks;
+let cachedManagers: Manager[] = initialData.managers;
+
+// Initial generation if starting fresh at GW15
+if (cachedGameweeks.length === 0) {
+    // We need to create a 'base' set of points so they aren't all 0 for the first view
+    cachedManagers.forEach(m => {
+        m.total_points = randomInt(800, 1000); // Base points for GW15
+    });
+}
+
+export const getCurrentStoredGameweek = (): number => {
+  // Return the last stored GW or default 15
+  const data = loadFromStorage();
+  return data.currentGw;
+};
+
+export const getLeagueData = async (targetGameweek: number): Promise<{ standings: FinancialStanding[], gameweeks: GameweekResult[] }> => {
   // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 800));
+  await new Promise(resolve => setTimeout(resolve, 300));
 
-  const currentGameweek = 15; // Suppose we are in GW 15
-  const gameweeks: GameweekResult[] = [];
-  const managerData = JSON.parse(JSON.stringify(MOCK_MANAGERS)); // Deep copy
+  const data = loadFromStorage();
+  cachedManagers = data.managers;
+  cachedGameweeks = data.gameweeks;
+  let currentStoredGw = data.currentGw;
 
-  // Simulate history
-  for (let gw = 1; gw <= currentGameweek; gw++) {
-    const gwScores = managerData.map((m: Manager) => {
-      const rawScore = randomInt(30, 100);
-      const transfers = randomInt(0, 1) === 1 ? 4 : 0; // Occasional -4 hit
-      return {
-        managerId: m.id,
-        points: rawScore,
-        netPoints: rawScore - transfers
-      };
-    });
+  // If we are asking for a gameweek we haven't generated yet, generate the gap
+  if (targetGameweek > currentStoredGw) {
+    for (let gw = currentStoredGw + 1; gw <= targetGameweek; gw++) {
+      const gwScores = cachedManagers.map((m: Manager) => {
+        const rawScore = randomInt(30, 100);
+        const transfers = randomInt(0, 10) > 8 ? 4 : 0; // 20% chance of -4 hit
+        return {
+          managerId: m.id,
+          points: rawScore,
+          netPoints: rawScore - transfers
+        };
+      });
 
-    // Find winner(s)
-    let maxScore = -999;
-    gwScores.forEach((s: any) => {
-      if (s.netPoints > maxScore) maxScore = s.netPoints;
-    });
-    const winners = gwScores.filter((s: any) => s.netPoints === maxScore).map((s: any) => s.managerId);
+      // Find winner(s)
+      let maxScore = -999;
+      gwScores.forEach((s: any) => {
+        if (s.netPoints > maxScore) maxScore = s.netPoints;
+      });
+      const winners = gwScores.filter((s: any) => s.netPoints === maxScore).map((s: any) => s.managerId);
 
-    gameweeks.push({
-      gw,
-      scores: gwScores,
-      winners,
-      prizePerWinner: LEAGUE_SETTINGS.weeklyPrize / winners.length
-    });
+      cachedGameweeks.push({
+        gw,
+        scores: gwScores,
+        winners,
+        prizePerWinner: LEAGUE_SETTINGS.weeklyPrize / winners.length
+      });
 
-    // Update manager totals
-    managerData.forEach((m: Manager) => {
-      const s = gwScores.find((score: any) => score.managerId === m.id);
-      m.total_points += s.netPoints; // FPL usually tracks raw, but this league cares about net
-      m.event_total = s.points;
-      m.event_transfers_cost = s.points - s.netPoints;
-    });
+      // Update manager totals (Persistent)
+      cachedManagers.forEach((m: Manager) => {
+        const s = gwScores.find((score: any) => score.managerId === m.id);
+        if (s) {
+            m.total_points += s.netPoints; 
+            m.event_total = s.points;
+            m.event_transfers_cost = s.points - s.netPoints;
+            
+            // Random rank shuffle logic
+            m.last_rank = m.rank;
+        }
+      });
+    }
+    
+    // Save state after simulation
+    saveToStorage(cachedManagers, cachedGameweeks, targetGameweek);
   }
 
+  // Create a fresh copy for sorting
+  const sortedManagers = [...cachedManagers];
+
   // Sort managers by total points for rank
-  managerData.sort((a: Manager, b: Manager) => b.total_points - a.total_points);
+  sortedManagers.sort((a: Manager, b: Manager) => b.total_points - a.total_points);
   
   // Calculate Financials
-  const financialStandings: FinancialStanding[] = managerData.map((m: Manager, index: number) => {
+  const financialStandings: FinancialStanding[] = sortedManagers.map((m: Manager, index: number) => {
     let winnings = 0;
     let weeksWon = 0;
 
-    gameweeks.forEach(gw => {
+    cachedGameweeks.forEach(gw => {
       if (gw.winners.includes(m.id)) {
         winnings += gw.prizePerWinner;
         weeksWon++;
       }
     });
 
-    // Mock Chips Data
-    // Randomly assign chips to make it look real
-    const used_chips: string[] = [];
-    if (Math.random() > 0.4) used_chips.push('wc');
-    if (Math.random() > 0.8) used_chips.push('tc');
-    if (Math.random() > 0.9) used_chips.push('bb');
-    if (Math.random() > 0.95) used_chips.push('fh');
+    // Mock Chips Data (Randomly assign if advancing)
+    if (targetGameweek > 15 && Math.random() > 0.8 && m.used_chips.length < 2) {
+        const chips = ['wc', 'fh', 'bb', 'tc'] as const;
+        const randomChip = chips[Math.floor(Math.random() * chips.length)];
+        if (!m.used_chips.includes(randomChip)) {
+             m.used_chips.push(randomChip);
+        }
+    }
+    // Initial mock chips for demo
+    if (targetGameweek === 15 && m.used_chips.length === 0) {
+        if (Math.random() > 0.4) m.used_chips.push('wc');
+        if (Math.random() > 0.8) m.used_chips.push('tc');
+    }
 
     return {
       ...m,
       rank: index + 1,
-      last_rank: index + 1 + randomInt(-2, 2), // Simulate movement
+      // last_rank is handled in simulation loop or defaulted
+      last_rank: m.last_rank || index + 1,
       weeklyWinnings: winnings,
       netProfit: winnings - LEAGUE_SETTINGS.buyIn,
       weeksWon,
-      used_chips
+      used_chips: m.used_chips
     };
   });
 
-  return { standings: financialStandings, gameweeks };
+  return { standings: financialStandings, gameweeks: cachedGameweeks };
 };
 
 export const getTeamPicks = async (_managerId: number): Promise<Player[]> => {
   // Return a valid formation (1 GK, 3-5 DEF, 3-5 MID, 1-3 FWD)
-  // Simply filtering from MOCK DB for demo
   const gks = MOCK_PLAYERS_DB.filter(p => p.element_type === 1).slice(0, 2);
   const defs = MOCK_PLAYERS_DB.filter(p => p.element_type === 2).slice(0, 5);
   const mids = MOCK_PLAYERS_DB.filter(p => p.element_type === 3).slice(0, 5);
   const fwds = MOCK_PLAYERS_DB.filter(p => p.element_type === 4).slice(0, 3);
   
   return [...gks, ...defs, ...mids, ...fwds];
+};
+
+// Helper to reset simulation
+export const resetSimulation = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    window.location.reload();
 };

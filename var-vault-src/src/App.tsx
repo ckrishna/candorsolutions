@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Tab } from './types';
 import type { FinancialStanding, Player } from './types';
-import { getLeagueData, getTeamPicks, MOCK_PLAYERS_DB } from './services/fplService';
+import { getLeagueData, getTeamPicks, MOCK_PLAYERS_DB, getCurrentStoredGameweek, resetSimulation } from './services/fplService';
 import BottomNav from './components/BottomNav';
 import StandingsView from './components/StandingsView';
 import TeamView from './components/TeamView';
@@ -13,22 +13,33 @@ function App() {
   const [standings, setStandings] = useState<FinancialStanding[]>([]);
   const [myTeam, setMyTeam] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Initialize GW from storage if available, otherwise starts at 15
+  const [currentGw, setCurrentGw] = useState(() => getCurrentStoredGameweek());
 
-  useEffect(() => {
-    const initData = async () => {
-      // 1. Load Standings & Financials
-      const { standings: leagueStandings } = await getLeagueData();
-      setStandings(leagueStandings);
-
-      // 2. Load User's Team (Using ID 1 for 'You')
+  const fetchData = async (gw: number) => {
+    setLoading(true);
+    const { standings: leagueStandings } = await getLeagueData(gw);
+    setStandings(leagueStandings);
+    
+    // Load User's Team (only needed once really, but kept here)
+    if (myTeam.length === 0) {
       const team = await getTeamPicks(1);
       setMyTeam(team);
+    }
+    
+    setLoading(false);
+  };
 
-      setLoading(false);
-    };
-
-    initData();
+  useEffect(() => {
+    fetchData(currentGw);
   }, []);
+
+  const handleAdvanceGameweek = () => {
+    const nextGw = currentGw + 1;
+    setCurrentGw(nextGw);
+    fetchData(nextGw);
+  };
 
   const renderContent = () => {
     if (loading) {
@@ -42,7 +53,25 @@ function App() {
 
     switch (activeTab) {
       case Tab.STANDINGS:
-        return <StandingsView standings={standings} />;
+        return (
+          <div className="relative">
+             <StandingsView 
+              standings={standings} 
+              currentGw={currentGw}
+              onAdvanceGameweek={handleAdvanceGameweek}
+            />
+            {currentGw > 15 && (
+              <div className="fixed top-4 right-4 z-50 opacity-30 hover:opacity-100 transition-opacity">
+                <button 
+                  onClick={resetSimulation}
+                  className="text-[10px] bg-red-500 text-white px-2 py-1 rounded shadow-sm"
+                >
+                  Reset Sim
+                </button>
+              </div>
+            )}
+          </div>
+        );
       case Tab.TEAM:
         return <TeamView team={myTeam} />;
       case Tab.STATS:
@@ -50,7 +79,13 @@ function App() {
       case Tab.ASSISTANT:
         return <AssistantView standings={standings} players={MOCK_PLAYERS_DB} />;
       default:
-        return <StandingsView standings={standings} />;
+        return (
+          <StandingsView 
+            standings={standings} 
+            currentGw={currentGw}
+            onAdvanceGameweek={handleAdvanceGameweek}
+          />
+        );
     }
   };
 
