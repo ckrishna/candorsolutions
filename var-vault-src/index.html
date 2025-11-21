@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    
+    <!-- PWA Settings -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- iOS PWA Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VAR Vault">
+    <meta name="theme-color" content="#37003c">
+
+    <title>VAR Vault</title>
+    <!-- Keeping Tailwind CDN for simplicity as per your current setup -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              fpl: {
+                purple: '#37003c',
+                green: '#00ff85',
+                pink: '#ff2882',
+                cyan: '#00ffff',
+                gray: '#383838'
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #f3f4f6;
+        overscroll-behavior-y: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- This line connects React to the HTML -->
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>
