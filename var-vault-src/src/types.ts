@@ -1,3 +1,5 @@
+export type Chip = 'wc' | 'fh' | 'bb' | 'tc';
+
 export interface Player {
   id: number;
   web_name: string;
@@ -19,7 +21,7 @@ export interface Manager {
   last_rank: number;
   event_total: number; // Points this gameweek
   event_transfers_cost: number; // Hits taken
-  used_chips: string[]; // Array of used chip identifiers: 'wc', 'fh', 'bb', 'tc'
+  used_chips: Chip[]; // Array of used chip identifiers
 }
 
 export interface GameweekResult {
@@ -36,11 +38,19 @@ export interface LeagueSettings {
   totalPlayers: number;
 }
 
+export interface BootstrapData {
+  leagueId: number;
+  timestamp: string;
+  managers: Manager[];
+  gameweeks: GameweekResult[];
+}
+
 export const Tab = {
   STANDINGS: 'standings',
   TEAM: 'team',
   STATS: 'stats',
   ASSISTANT: 'assistant',
+  UPDATER: 'updater', // Added Updater Tab
 } as const;
 
 export type Tab = typeof Tab[keyof typeof Tab];

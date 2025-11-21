@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { FinancialStanding } from '../types';
-import { ArrowUp, ArrowDown, Minus, Share } from 'lucide-react';
+import { LEAGUE_SETTINGS } from '../constants';
+import { ArrowUp, ArrowDown, Minus, Share, Check, RefreshCw } from 'lucide-react';
 
 interface Props {
   standings: FinancialStanding[];
+  currentGw: number;
+  lastUpdated?: string;
+  onAdvanceGameweek: () => void;
+  onRefreshData: () => void;
+  onOpenUpdater: () => void;
 }
 
-const StandingsView: React.FC<Props> = ({ standings }) => {
+const StandingsView: React.FC<Props> = ({ standings, currentGw, lastUpdated, onAdvanceGameweek, onOpenUpdater }) => {
+  const [copied, setCopied] = useState(false);
+
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -20,7 +28,8 @@ const StandingsView: React.FC<Props> = ({ standings }) => {
       }
     } else {
       navigator.clipboard.writeText(window.location.href);
-      alert('App link copied to clipboard!');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   };
 
@@ -30,25 +39,48 @@ const StandingsView: React.FC<Props> = ({ standings }) => {
         <div className="flex justify-between items-start">
           <div>
             <h1 className="text-2xl font-bold mb-1">VAR Vault</h1>
-            <p className="text-fpl-green text-sm font-medium">League ID: 212889</p>
+            <div className="text-fpl-green text-sm font-medium">
+              <p className="flex items-center gap-2">ID: {LEAGUE_SETTINGS.id} • GW {currentGw}</p>
+              {lastUpdated && (
+                <p className="text-xs text-indigo-300 mt-1 opacity-80 font-normal">
+                  Updated: {lastUpdated}
+                </p>
+              )}
+            </div>
           </div>
-          <button 
-            onClick={handleShare}
-            className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
-            aria-label="Share"
-          >
-            <Share size={20} className="text-fpl-cyan" />
-          </button>
+          <div className="flex gap-2">
+            <button 
+                onClick={onOpenUpdater}
+                className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                title="Update League Data"
+            >
+                <RefreshCw size={20} className="text-fpl-cyan" />
+            </button>
+            <div className="relative">
+                <button 
+                onClick={handleShare}
+                className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                aria-label="Share"
+                >
+                {copied ? <Check size={20} className="text-fpl-green" /> : <Share size={20} className="text-fpl-cyan" />}
+                </button>
+                {copied && (
+                <div className="absolute right-0 top-full mt-2 bg-white text-fpl-purple text-xs font-bold px-2 py-1 rounded shadow-md animate-fade-in whitespace-nowrap z-10">
+                    Link Copied!
+                </div>
+                )}
+            </div>
+          </div>
         </div>
         
         <div className="mt-4 grid grid-cols-3 gap-4 text-center">
           <div className="bg-white/10 p-3 rounded-lg">
             <div className="text-xs text-gray-300 uppercase">Pot</div>
-            <div className="text-xl font-bold">$330</div>
+            <div className="text-xl font-bold">${LEAGUE_SETTINGS.buyIn * LEAGUE_SETTINGS.totalPlayers}</div>
           </div>
           <div className="bg-white/10 p-3 rounded-lg">
             <div className="text-xs text-gray-300 uppercase">Weekly</div>
-            <div className="text-xl font-bold">$5</div>
+            <div className="text-xl font-bold">${LEAGUE_SETTINGS.weeklyPrize}</div>
           </div>
           <div className="bg-white/10 p-3 rounded-lg">
             <div className="text-xs text-gray-300 uppercase">1st Prize</div>
@@ -64,49 +96,33 @@ const StandingsView: React.FC<Props> = ({ standings }) => {
           <div className="w-16 text-right">Points</div>
           <div className="w-20 text-right">Profit</div>
         </div>
-
-        {standings.map((manager) => {
-          const rankDiff = manager.last_rank - manager.rank;
-          return (
-            <div 
-              key={manager.id} 
-              className={`bg-white rounded-xl p-4 shadow-sm flex items-center border-l-4 ${
-                manager.rank === 1 ? 'border-fpl-green' : manager.rank <= 3 ? 'border-fpl-cyan' : 'border-transparent'
-              }`}
-            >
-              <div className="w-8 flex flex-col items-center justify-center">
-                <span className="font-bold text-gray-700">{manager.rank}</span>
-                <div className="text-[10px]">
-                   {rankDiff > 0 ? (
-                    <span className="text-green-500 flex items-center"><ArrowUp size={10} /> {rankDiff}</span>
-                  ) : rankDiff < 0 ? (
-                    <span className="text-red-500 flex items-center"><ArrowDown size={10} /> {Math.abs(rankDiff)}</span>
-                  ) : (
-                    <span className="text-gray-400"><Minus size={10} /></span>
-                  )}
-                </div>
-              </div>
-              
-              <div className="flex-1 pl-3">
-                <h3 className="font-bold text-gray-900 truncate">{manager.entry_name}</h3>
-                <p className="text-xs text-gray-500">{manager.player_name}</p>
-                {manager.weeksWon > 0 && (
-                    <span className="inline-block mt-1 px-1.5 py-0.5 bg-yellow-100 text-yellow-800 text-[10px] font-bold rounded-full">
-                        🏆 x{manager.weeksWon}
-                    </span>
+        
+        {standings.map((manager) => (
+          <div key={manager.id} className="bg-white p-4 rounded-xl shadow-sm flex items-center">
+             <div className="w-8 text-center font-bold text-gray-400">
+               {manager.rank}
+               <div className="flex justify-center mt-1">
+                {manager.rank < manager.last_rank ? (
+                   <ArrowUp size={12} className="text-fpl-green" />
+                ) : manager.rank > manager.last_rank ? (
+                   <ArrowDown size={12} className="text-red-500" />
+                ) : (
+                   <Minus size={12} className="text-gray-300" />
                 )}
-              </div>
-
-              <div className="w-16 text-right font-bold text-gray-700">
-                {manager.total_points}
-              </div>
-
-              <div className={`w-20 text-right font-bold ${manager.netProfit >= 0 ? 'text-fpl-green' : 'text-red-500'}`}>
-                {manager.netProfit >= 0 ? '+' : ''}${manager.netProfit.toFixed(0)}
-              </div>
-            </div>
-          );
-        })}
+               </div>
+             </div>
+             <div className="flex-1 min-w-0 px-2">
+               <div className="font-bold text-gray-900 truncate">{manager.entry_name}</div>
+               <div className="text-xs text-gray-500 truncate">{manager.player_name}</div>
+             </div>
+             <div className="w-16 text-right font-bold text-gray-800">
+               {manager.total_points}
+             </div>
+             <div className={`w-20 text-right font-bold ${manager.netProfit >= 0 ? 'text-fpl-green' : 'text-red-500'}`}>
+               {manager.netProfit >= 0 ? '+' : ''}${manager.netProfit.toFixed(2)}
+             </div>
+          </div>
+        ))}
       </div>
     </div>
   );
