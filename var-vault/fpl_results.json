@@ -2,7 +2,7 @@
   "league_id": 212889,
   "league_name": "Carpe Diem",
   "max_gameweek": 13,
-  "updated_at": "2025-12-01T02:58:14Z",
+  "updated_at": "2025-12-01T03:10:53Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
@@ -10,10 +10,10 @@
       "total_points": 825,
       "earnings": 65.0,
       "chips": {
-        "wildcard": false,
-        "freehit": false,
-        "bboost": false,
-        "3xc": false
+        "wildcard": true,
+        "freehit": true,
+        "bboost": true,
+        "3xc": true
       }
     },
     {
@@ -22,10 +22,10 @@
       "total_points": 777,
       "earnings": 10.0,
       "chips": {
-        "wildcard": false,
+        "wildcard": true,
         "freehit": false,
         "bboost": false,
-        "3xc": false
+        "3xc": true
       }
     },
     {
@@ -34,8 +34,8 @@
       "total_points": 748,
       "earnings": -5.0,
       "chips": {
-        "wildcard": false,
-        "freehit": false,
+        "wildcard": true,
+        "freehit": true,
         "bboost": false,
         "3xc": false
       }
@@ -58,7 +58,7 @@
       "total_points": 705,
       "earnings": -20.0,
       "chips": {
-        "wildcard": false,
+        "wildcard": true,
         "freehit": false,
         "bboost": false,
         "3xc": false
@@ -71,8 +71,8 @@
       "earnings": -30,
       "chips": {
         "wildcard": false,
-        "freehit": false,
-        "bboost": false,
+        "freehit": true,
+        "bboost": true,
         "3xc": false
       }
     },
@@ -82,7 +82,7 @@
       "total_points": 691,
       "earnings": -25.0,
       "chips": {
-        "wildcard": false,
+        "wildcard": true,
         "freehit": false,
         "bboost": false,
         "3xc": false
@@ -94,7 +94,7 @@
       "total_points": 642,
       "earnings": -30,
       "chips": {
-        "wildcard": false,
+        "wildcard": true,
         "freehit": false,
         "bboost": false,
         "3xc": false
@@ -106,9 +106,9 @@
       "total_points": 640,
       "earnings": -30,
       "chips": {
-        "wildcard": false,
+        "wildcard": true,
         "freehit": false,
-        "bboost": false,
+        "bboost": true,
         "3xc": false
       }
     },
@@ -118,9 +118,9 @@
       "total_points": 567,
       "earnings": -30,
       "chips": {
-        "wildcard": false,
+        "wildcard": true,
         "freehit": false,
-        "bboost": false,
+        "bboost": true,
         "3xc": false
       }
     },
