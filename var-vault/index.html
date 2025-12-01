@@ -339,48 +339,59 @@
       `;
     }
 
-    function renderStats(players) {
-      const container = document.getElementById('stats');
-      if (!players || !players.length) {
-        container.innerHTML = '<p>No data available.</p>';
-        return;
-      }
+	function renderStats(players) {
+	  const container = document.getElementById('stats');
+	  if (!players || !players.length) {
+	    container.innerHTML = '<p>No data available.</p>';
+	    return;
+	  }
 
-      const rows = players.map(p => {
-        const chips = p.chips || {};
-        const wc  = chips.wildcard ? '✅' : '—';
-        const fh  = chips.freehit  ? '✅' : '—';
-        const bb  = chips.bboost   ? '✅' : '—';
-        const tc  = chips["3xc"]   ? '✅' : '—';
+	  const maxPerChip = 2; // 2 sets of each chip in 2025/26
 
-        return `
-          <tr>
-            <td>${p.name}</td>
-            <td class="chip-check ${chips.wildcard ? 'chip-used' : 'chip-not-used'}">${wc}</td>
-            <td class="chip-check ${chips.freehit  ? 'chip-used' : 'chip-not-used'}">${fh}</td>
-            <td class="chip-check ${chips.bboost   ? 'chip-used' : 'chip-not-used'}">${bb}</td>
-            <td class="chip-check ${chips["3xc"]   ? 'chip-used' : 'chip-not-used'}">${tc}</td>
-          </tr>
-        `;
-      }).join('');
+	  function fmt(count) {
+	    const c = typeof count === 'number' ? count : 0;
+	    const clamped = Math.min(c, maxPerChip);
+	    return `${clamped} / ${maxPerChip}`;
+	  }
 
-      container.innerHTML = `
-        <h3>Chip Usage</h3>
-        <p class="meta-line">✅ = chip used at least once so far this season.</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Manager</th>
-              <th>Wildcard</th>
-              <th>Free Hit</th>
-              <th>Bench Boost</th>
-              <th>Triple Captain</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `;
-    }
+	  const rows = players.map(p => {
+	    const chips = p.chips || {};
+	    const wc  = fmt(chips.wildcard);
+	    const fh  = fmt(chips.freehit);
+	    const bb  = fmt(chips.bboost);
+	    const tc  = fmt(chips["3xc"]);
+
+	    return `
+	      <tr>
+	        <td>${p.name}</td>
+	        <td class="chip-check">${wc}</td>
+	        <td class="chip-check">${fh}</td>
+	        <td class="chip-check">${bb}</td>
+	        <td class="chip-check">${tc}</td>
+	      </tr>
+	    `;
+	  }).join('');
+
+	  container.innerHTML = `
+	    <h3>Chip Usage</h3>
+	    <p class="meta-line">
+	      Each manager has 2 Wildcards, 2 Free Hits, 2 Bench Boosts and 2 Triple Captains in 2025/26.
+	      Values below show chips used so far (used / total).
+	    </p>
+	    <table>
+	      <thead>
+	        <tr>
+	          <th>Manager</th>
+	          <th>Wildcard</th>
+	          <th>Free Hit</th>
+	          <th>Bench Boost</th>
+	          <th>Triple Captain</th>
+	        </tr>
+	      </thead>
+	      <tbody>${rows}</tbody>
+	    </table>
+	  `;
+	}
 
     // Bottom nav tab switching
     document.addEventListener('click', (e) => {

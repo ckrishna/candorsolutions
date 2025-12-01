@@ -2,7 +2,7 @@
   "league_id": 212889,
   "league_name": "Carpe Diem",
   "max_gameweek": 13,
-  "updated_at": "2025-12-01T05:27:55Z",
+  "updated_at": "2025-12-01T06:25:49Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
@@ -10,10 +10,10 @@
       "total_points": 825,
       "earnings": 95.0,
       "chips": {
-        "wildcard": true,
-        "freehit": true,
-        "bboost": true,
-        "3xc": true
+        "wildcard": 1,
+        "freehit": 1,
+        "bboost": 1,
+        "3xc": 1
       }
     },
     {
@@ -22,10 +22,10 @@
       "total_points": 745,
       "earnings": 40.0,
       "chips": {
-        "wildcard": true,
-        "freehit": false,
-        "bboost": false,
-        "3xc": true
+        "wildcard": 1,
+        "freehit": 0,
+        "bboost": 0,
+        "3xc": 1
       }
     },
     {
@@ -34,10 +34,10 @@
       "total_points": 744,
       "earnings": 25.0,
       "chips": {
-        "wildcard": true,
-        "freehit": true,
-        "bboost": false,
-        "3xc": false
+        "wildcard": 1,
+        "freehit": 1,
+        "bboost": 0,
+        "3xc": 0
       }
     },
     {
@@ -46,10 +46,10 @@
       "total_points": 719,
       "earnings": 0.0,
       "chips": {
-        "wildcard": false,
-        "freehit": false,
-        "bboost": false,
-        "3xc": false
+        "wildcard": 0,
+        "freehit": 0,
+        "bboost": 0,
+        "3xc": 0
       }
     },
     {
@@ -58,10 +58,10 @@
       "total_points": 697,
       "earnings": 10.0,
       "chips": {
-        "wildcard": true,
-        "freehit": false,
-        "bboost": false,
-        "3xc": false
+        "wildcard": 1,
+        "freehit": 0,
+        "bboost": 0,
+        "3xc": 0
       }
     },
     {
@@ -70,10 +70,10 @@
       "total_points": 696,
       "earnings": 0.0,
       "chips": {
-        "wildcard": false,
-        "freehit": true,
-        "bboost": true,
-        "3xc": false
+        "wildcard": 0,
+        "freehit": 1,
+        "bboost": 1,
+        "3xc": 0
       }
     },
     {
@@ -82,10 +82,10 @@
       "total_points": 691,
       "earnings": 5.0,
       "chips": {
-        "wildcard": true,
-        "freehit": false,
-        "bboost": false,
-        "3xc": false
+        "wildcard": 1,
+        "freehit": 0,
+        "bboost": 0,
+        "3xc": 0
       }
     },
     {
@@ -94,10 +94,10 @@
       "total_points": 640,
       "earnings": 0.0,
       "chips": {
-        "wildcard": true,
-        "freehit": false,
-        "bboost": true,
-        "3xc": false
+        "wildcard": 1,
+        "freehit": 0,
+        "bboost": 1,
+        "3xc": 0
       }
     },
     {
@@ -106,10 +106,10 @@
       "total_points": 618,
       "earnings": 0.0,
       "chips": {
-        "wildcard": true,
-        "freehit": false,
-        "bboost": false,
-        "3xc": false
+        "wildcard": 1,
+        "freehit": 0,
+        "bboost": 0,
+        "3xc": 0
       }
     },
     {
@@ -118,10 +118,10 @@
       "total_points": 567,
       "earnings": 0.0,
       "chips": {
-        "wildcard": true,
-        "freehit": false,
-        "bboost": true,
-        "3xc": false
+        "wildcard": 1,
+        "freehit": 0,
+        "bboost": 1,
+        "3xc": 0
       }
     },
     {
@@ -130,10 +130,10 @@
       "total_points": 496,
       "earnings": 0.0,
       "chips": {
-        "wildcard": false,
-        "freehit": false,
-        "bboost": false,
-        "3xc": false
+        "wildcard": 0,
+        "freehit": 0,
+        "bboost": 0,
+        "3xc": 0
       }
     }
   ],
