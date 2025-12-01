@@ -1,74 +1,140 @@
 {
   "league_id": 212889,
   "league_name": "Carpe Diem",
-  "max_gameweek": 12,
-  "updated_at": "2025-12-01T02:49:54Z",
+  "max_gameweek": 13,
+  "updated_at": "2025-12-01T02:58:14Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
       "team_name": "Da Movement",
-      "total_points": 751,
-      "earnings": 60.0
+      "total_points": 825,
+      "earnings": 65.0,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     },
     {
       "name": "Sushil Suvarna",
       "team_name": "Suberox",
-      "total_points": 740,
-      "earnings": 10.0
+      "total_points": 777,
+      "earnings": 10.0,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     },
     {
       "name": "Sricharan Murugesan",
       "team_name": "Gobi FC",
-      "total_points": 690,
-      "earnings": -5.0
-    },
-    {
-      "name": "Himanish Raghunath",
-      "team_name": "Nish's Team",
-      "total_points": 681,
-      "earnings": -20.0
+      "total_points": 748,
+      "earnings": -5.0,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     },
     {
       "name": "Vineet Dhiman",
       "team_name": "Spursy Spurs",
-      "total_points": 672,
-      "earnings": -30
+      "total_points": 719,
+      "earnings": -30,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
+    },
+    {
+      "name": "Himanish Raghunath",
+      "team_name": "Nish's Team",
+      "total_points": 705,
+      "earnings": -20.0,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     },
     {
       "name": "Vinay Swaminathan",
       "team_name": "Boltzman",
-      "total_points": 662,
-      "earnings": -30
+      "total_points": 704,
+      "earnings": -30,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     },
     {
       "name": "aditya shringarpure",
       "team_name": "Biosfear",
-      "total_points": 646,
-      "earnings": -25.0
-    },
-    {
-      "name": "Devin Jackson",
-      "team_name": "2 Gorls 1 Klorp",
-      "total_points": 608,
-      "earnings": -30
+      "total_points": 691,
+      "earnings": -25.0,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     },
     {
       "name": "Chetan Bk",
       "team_name": "Benficaaaaaaa",
-      "total_points": 595,
-      "earnings": -30
+      "total_points": 642,
+      "earnings": -30,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
+    },
+    {
+      "name": "Devin Jackson",
+      "team_name": "2 Gorls 1 Klorp",
+      "total_points": 640,
+      "earnings": -30,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     },
     {
       "name": "nihar namjoshi",
       "team_name": "4-5-2",
-      "total_points": 505,
-      "earnings": -30
+      "total_points": 567,
+      "earnings": -30,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     },
     {
       "name": "Sunil Mathew",
       "team_name": "Team",
-      "total_points": 462,
-      "earnings": -30
+      "total_points": 496,
+      "earnings": -30,
+      "chips": {
+        "wildcard": false,
+        "freehit": false,
+        "bboost": false,
+        "3xc": false
+      }
     }
   ],
   "weekly_results": [
@@ -142,6 +208,12 @@
       "gw": 12,
       "name": "Sricharan Murugesan",
       "points": 60,
+      "prize": 5.0
+    },
+    {
+      "gw": 13,
+      "name": "Michael Kojo Brown",
+      "points": 74,
       "prize": 5.0
     }
   ]

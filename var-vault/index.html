@@ -5,57 +5,61 @@
   <title>VAR Vault – FPL League Payouts</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      --bg: #0b1020;
+      --card: #151a30;
+      --text: #f5f5f5;
+      --muted: #9ca3af;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
-      padding: 16px;
-      background: #0b1020;
-      color: #f5f5f5;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
     }
 
-    .container {
+    .app {
       max-width: 900px;
       margin: 0 auto;
+      padding: 16px 16px 80px; /* bottom padding for nav */
+      min-height: 100vh;
     }
 
     h1, h2, h3 {
       margin: 0 0 12px 0;
     }
 
+    .meta-line {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
     .card {
-      background: #151a30;
-      border-radius: 12px;
+      background: var(--card);
+      border-radius: 16px;
       padding: 16px;
       margin-bottom: 16px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
-    .meta-line {
-      font-size: 13px;
-      color: #9ca3af;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .tab-button {
-      flex: 1;
-      text-align: center;
-      padding: 8px 12px;
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
       border-radius: 999px;
-      border: 1px solid #3b82f6;
-      background: transparent;
-      color: #e5e7eb;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .tab-button.active {
-      background: #3b82f6;
-      color: white;
+      background: var(--accent-soft);
+      color: #bfdbfe;
+      font-size: 12px;
+      margin-right: 4px;
+      margin-bottom: 4px;
     }
 
     table {
@@ -67,11 +71,16 @@
     th, td {
       padding: 8px;
       text-align: left;
+      vertical-align: middle;
     }
 
     th {
       border-bottom: 1px solid #374151;
       font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #d1d5db;
     }
 
     tr:nth-child(even) {
@@ -82,39 +91,149 @@
       background: transparent;
     }
 
-    .pill {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.2);
-      color: #6ee7b7;
-      font-size: 12px;
-      margin-right: 4px;
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Bottom navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #020617;
+      border-top: 1px solid #1f2937;
+      display: flex;
+      justify-content: space-around;
+      padding: 4px 0;
+      z-index: 50;
+    }
+
+    .nav-button {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      padding: 6px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+    }
+
+    .nav-button span.icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .nav-button span.label {
+      font-size: 11px;
+    }
+
+    .nav-button.active {
+      color: var(--accent);
+    }
+
+    .nav-button.active span.icon {
+      filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.7));
+    }
+
+    .chip-check {
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .chip-used {
+      color: #4ade80; /* green */
+    }
+
+    .chip-not-used {
+      color: #6b7280; /* gray */
+    }
+
+    .help-list {
+      font-size: 14px;
+      padding-left: 18px;
+    }
+
+    .help-list li {
+      margin-bottom: 6px;
+    }
+
+    a {
+      color: #93c5fd;
     }
 
     @media (max-width: 600px) {
-      table { font-size: 12px; }
-      th, td { padding: 6px; }
+      table {
+        font-size: 12px;
+      }
+      th, td {
+        padding: 6px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="app">
     <h1>VAR Vault</h1>
     <p class="meta-line" id="last-updated">Loading...</p>
 
     <div id="meta" class="card"></div>
 
-    <div class="card">
-      <div class="tabs">
-        <button class="tab-button active" data-tab="standings">Standings</button>
-        <button class="tab-button" data-tab="weekly">Weekly Winners</button>
-      </div>
+    <div id="tab-standings" class="tab-content active">
+      <div class="card" id="standings"></div>
+    </div>
 
-      <div id="standings" class="tab-content"></div>
-      <div id="weekly" class="tab-content" style="display: none;"></div>
+    <div id="tab-weekly" class="tab-content">
+      <div class="card" id="weekly"></div>
+    </div>
+
+    <div id="tab-stats" class="tab-content">
+      <div class="card" id="stats"></div>
+    </div>
+
+    <div id="tab-help" class="tab-content">
+      <div class="card" id="help">
+        <h3>Help & Feedback</h3>
+        <ul class="help-list">
+          <li>This dashboard shows payouts and standings for our private FPL league.</li>
+          <li>Standings tab: current table + earnings (buy-in, GW wins, and final pot applied as of now).</li>
+          <li>GW Winners tab: weekly winners, their GW score, and prize split.</li>
+          <li>Stats tab: current chip usage (Bench Boost, Triple Captain, Wildcard, Free Hit).</li>
+        </ul>
+        <p style="font-size: 14px;">
+          Spot a bug or have an idea? Ping me or send feedback to:
+          <a href="mailto:admin@candorsolutions.us">admin@candorsolutions.us</a>
+        </p>
+      </div>
     </div>
   </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-button active" data-tab="standings">
+      <span class="icon">🏆</span>
+      <span class="label">Standings</span>
+    </button>
+    <button class="nav-button" data-tab="weekly">
+      <span class="icon">📅</span>
+      <span class="label">GW Winners</span>
+    </button>
+    <button class="nav-button" data-tab="stats">
+      <span class="icon">📊</span>
+      <span class="label">Stats</span>
+    </button>
+    <button class="nav-button" data-tab="help">
+      <span class="icon">❓</span>
+      <span class="label">Help</span>
+    </button>
+  </nav>
 
   <script>
     async function loadData() {
@@ -125,6 +244,7 @@
         renderMeta(data);
         renderStandings(data.players, data.max_gameweek, data.league_name);
         renderWeekly(data.weekly_results);
+        renderStats(data.players);
       } catch (e) {
         document.getElementById('last-updated').textContent =
           'Failed to load data. Did you run the update script?';
@@ -184,48 +304,94 @@
       `;
     }
 
-	function renderWeekly(weeklyResults) {
-	  const container = document.getElementById('weekly');
-	  if (!weeklyResults.length) {
-	    container.innerHTML = '<p>No finished gameweeks yet.</p>';
-	    return;
-	  }
+    function renderWeekly(weeklyResults) {
+      const container = document.getElementById('weekly');
+      if (!weeklyResults.length) {
+        container.innerHTML = '<p>No finished gameweeks yet.</p>';
+        return;
+      }
 
-	  const rows = weeklyResults.map(r => `
-	    <tr>
-	      <td>${r.gw}</td>
-	      <td>${r.name}</td>
-	      <td>${r.points}</td>
-	      <td>$${r.prize.toFixed(2)}</td>
-	    </tr>
-	  `).join('');
+      const rows = weeklyResults.map(r => `
+        <tr>
+          <td>${r.gw}</td>
+          <td>${r.name}</td>
+          <td>${r.points}</td>
+          <td>$${r.prize.toFixed(2)}</td>
+        </tr>
+      `).join('');
 
-	  container.innerHTML = `
-	    <h3>Weekly Winners</h3>
-	    <table>
-	      <thead>
-	        <tr>
-	          <th>Gameweek</th>
-	          <th>Manager</th>
-	          <th>Points</th>
-	          <th>Prize ($)</th>
-	        </tr>
-	      </thead>
-	      <tbody>${rows}</tbody>
-	    </table>
-	  `;
-	}
+      container.innerHTML = `
+        <h3>Weekly Winners</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Gameweek</th>
+              <th>Manager</th>
+              <th>Points</th>
+              <th>Prize ($)</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
 
-    // Tab switching
+    function renderStats(players) {
+      const container = document.getElementById('stats');
+      if (!players || !players.length) {
+        container.innerHTML = '<p>No data available.</p>';
+        return;
+      }
+
+      const rows = players.map(p => {
+        const chips = p.chips || {};
+        const wc  = chips.wildcard ? '✅' : '—';
+        const fh  = chips.freehit  ? '✅' : '—';
+        const bb  = chips.bboost   ? '✅' : '—';
+        const tc  = chips["3xc"]   ? '✅' : '—';
+
+        return `
+          <tr>
+            <td>${p.name}</td>
+            <td class="chip-check ${chips.wildcard ? 'chip-used' : 'chip-not-used'}">${wc}</td>
+            <td class="chip-check ${chips.freehit  ? 'chip-used' : 'chip-not-used'}">${fh}</td>
+            <td class="chip-check ${chips.bboost   ? 'chip-used' : 'chip-not-used'}">${bb}</td>
+            <td class="chip-check ${chips["3xc"]   ? 'chip-used' : 'chip-not-used'}">${tc}</td>
+          </tr>
+        `;
+      }).join('');
+
+      container.innerHTML = `
+        <h3>Chip Usage</h3>
+        <p class="meta-line">✅ = chip used at least once so far this season.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Manager</th>
+              <th>Wildcard</th>
+              <th>Free Hit</th>
+              <th>Bench Boost</th>
+              <th>Triple Captain</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    // Bottom nav tab switching
     document.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('tab-button')) return;
+      const btn = e.target.closest('.nav-button');
+      if (!btn) return;
 
-      const tab = e.target.getAttribute('data-tab');
-      document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-tab') === tab);
+      const tab = btn.getAttribute('data-tab');
+
+      document.querySelectorAll('.nav-button').forEach(b => {
+        b.classList.toggle('active', b === btn);
       });
+
       document.querySelectorAll('.tab-content').forEach(div => {
-        div.style.display = (div.id === tab) ? 'block' : 'none';
+        div.classList.toggle('active', div.id === `tab-${tab}`);
       });
     });
 
