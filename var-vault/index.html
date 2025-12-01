@@ -184,37 +184,37 @@
       `;
     }
 
-    function renderWeekly(weeklyResults) {
-      const container = document.getElementById('weekly');
-      if (!weeklyResults.length) {
-        container.innerHTML = '<p>No finished gameweeks yet.</p>';
-        return;
-      }
+	function renderWeekly(weeklyResults) {
+	  const container = document.getElementById('weekly');
+	  if (!weeklyResults.length) {
+	    container.innerHTML = '<p>No finished gameweeks yet.</p>';
+	    return;
+	  }
 
-      const rows = weeklyResults.map(r => `
-        <tr>
-          <td>${r.gw}</td>
-          <td>${r.name}</td>
-          <td>${r.team_name || ''}</td>
-          <td>$${r.prize.toFixed(2)}</td>
-        </tr>
-      `).join('');
+	  const rows = weeklyResults.map(r => `
+	    <tr>
+	      <td>${r.gw}</td>
+	      <td>${r.name}</td>
+	      <td>${r.points}</td>
+	      <td>$${r.prize.toFixed(2)}</td>
+	    </tr>
+	  `).join('');
 
-      container.innerHTML = `
-        <h3>Weekly Winners</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Gameweek</th>
-              <th>Manager</th>
-              <th>Team</th>
-              <th>Prize ($)</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `;
-    }
+	  container.innerHTML = `
+	    <h3>Weekly Winners</h3>
+	    <table>
+	      <thead>
+	        <tr>
+	          <th>Gameweek</th>
+	          <th>Manager</th>
+	          <th>Points</th>
+	          <th>Prize ($)</th>
+	        </tr>
+	      </thead>
+	      <tbody>${rows}</tbody>
+	    </table>
+	  `;
+	}
 
     // Tab switching
     document.addEventListener('click', (e) => {

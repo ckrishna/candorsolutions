@@ -2,7 +2,7 @@
   "league_id": 212889,
   "league_name": "Carpe Diem",
   "max_gameweek": 12,
-  "updated_at": "2025-12-01T02:34:51Z",
+  "updated_at": "2025-12-01T02:49:54Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
@@ -75,73 +75,73 @@
     {
       "gw": 1,
       "name": "Michael Kojo Brown",
-      "team_name": "Da Movement",
+      "points": 74,
       "prize": 5.0
     },
     {
       "gw": 2,
       "name": "Himanish Raghunath",
-      "team_name": "Nish's Team",
+      "points": 64,
       "prize": 5.0
     },
     {
       "gw": 3,
       "name": "Sushil Suvarna",
-      "team_name": "Suberox",
+      "points": 61,
       "prize": 5.0
     },
     {
       "gw": 4,
       "name": "Sushil Suvarna",
-      "team_name": "Suberox",
+      "points": 91,
       "prize": 5.0
     },
     {
       "gw": 5,
       "name": "Michael Kojo Brown",
-      "team_name": "Da Movement",
+      "points": 65,
       "prize": 5.0
     },
     {
       "gw": 6,
       "name": "aditya shringarpure",
-      "team_name": "Biosfear",
+      "points": 79,
       "prize": 5.0
     },
     {
       "gw": 7,
       "name": "Sricharan Murugesan",
-      "team_name": "Gobi FC",
+      "points": 83,
       "prize": 5.0
     },
     {
       "gw": 8,
       "name": "Sricharan Murugesan",
-      "team_name": "Gobi FC",
+      "points": 77,
       "prize": 5.0
     },
     {
       "gw": 9,
       "name": "Michael Kojo Brown",
-      "team_name": "Da Movement",
+      "points": 70,
       "prize": 5.0
     },
     {
       "gw": 10,
       "name": "Himanish Raghunath",
-      "team_name": "Nish's Team",
+      "points": 87,
       "prize": 5.0
     },
     {
       "gw": 11,
       "name": "Michael Kojo Brown",
-      "team_name": "Da Movement",
+      "points": 42,
       "prize": 5.0
     },
     {
       "gw": 12,
       "name": "Sricharan Murugesan",
-      "team_name": "Gobi FC",
+      "points": 60,
       "prize": 5.0
     }
   ]
