@@ -1,0 +1,148 @@
+{
+  "league_id": 212889,
+  "league_name": "Carpe Diem",
+  "max_gameweek": 12,
+  "updated_at": "2025-12-01T02:34:51Z",
+  "players": [
+    {
+      "name": "Michael Kojo Brown",
+      "team_name": "Da Movement",
+      "total_points": 751,
+      "earnings": 60.0
+    },
+    {
+      "name": "Sushil Suvarna",
+      "team_name": "Suberox",
+      "total_points": 740,
+      "earnings": 10.0
+    },
+    {
+      "name": "Sricharan Murugesan",
+      "team_name": "Gobi FC",
+      "total_points": 690,
+      "earnings": -5.0
+    },
+    {
+      "name": "Himanish Raghunath",
+      "team_name": "Nish's Team",
+      "total_points": 681,
+      "earnings": -20.0
+    },
+    {
+      "name": "Vineet Dhiman",
+      "team_name": "Spursy Spurs",
+      "total_points": 672,
+      "earnings": -30
+    },
+    {
+      "name": "Vinay Swaminathan",
+      "team_name": "Boltzman",
+      "total_points": 662,
+      "earnings": -30
+    },
+    {
+      "name": "aditya shringarpure",
+      "team_name": "Biosfear",
+      "total_points": 646,
+      "earnings": -25.0
+    },
+    {
+      "name": "Devin Jackson",
+      "team_name": "2 Gorls 1 Klorp",
+      "total_points": 608,
+      "earnings": -30
+    },
+    {
+      "name": "Chetan Bk",
+      "team_name": "Benficaaaaaaa",
+      "total_points": 595,
+      "earnings": -30
+    },
+    {
+      "name": "nihar namjoshi",
+      "team_name": "4-5-2",
+      "total_points": 505,
+      "earnings": -30
+    },
+    {
+      "name": "Sunil Mathew",
+      "team_name": "Team",
+      "total_points": 462,
+      "earnings": -30
+    }
+  ],
+  "weekly_results": [
+    {
+      "gw": 1,
+      "name": "Michael Kojo Brown",
+      "team_name": "Da Movement",
+      "prize": 5.0
+    },
+    {
+      "gw": 2,
+      "name": "Himanish Raghunath",
+      "team_name": "Nish's Team",
+      "prize": 5.0
+    },
+    {
+      "gw": 3,
+      "name": "Sushil Suvarna",
+      "team_name": "Suberox",
+      "prize": 5.0
+    },
+    {
+      "gw": 4,
+      "name": "Sushil Suvarna",
+      "team_name": "Suberox",
+      "prize": 5.0
+    },
+    {
+      "gw": 5,
+      "name": "Michael Kojo Brown",
+      "team_name": "Da Movement",
+      "prize": 5.0
+    },
+    {
+      "gw": 6,
+      "name": "aditya shringarpure",
+      "team_name": "Biosfear",
+      "prize": 5.0
+    },
+    {
+      "gw": 7,
+      "name": "Sricharan Murugesan",
+      "team_name": "Gobi FC",
+      "prize": 5.0
+    },
+    {
+      "gw": 8,
+      "name": "Sricharan Murugesan",
+      "team_name": "Gobi FC",
+      "prize": 5.0
+    },
+    {
+      "gw": 9,
+      "name": "Michael Kojo Brown",
+      "team_name": "Da Movement",
+      "prize": 5.0
+    },
+    {
+      "gw": 10,
+      "name": "Himanish Raghunath",
+      "team_name": "Nish's Team",
+      "prize": 5.0
+    },
+    {
+      "gw": 11,
+      "name": "Michael Kojo Brown",
+      "team_name": "Da Movement",
+      "prize": 5.0
+    },
+    {
+      "gw": 12,
+      "name": "Sricharan Murugesan",
+      "team_name": "Gobi FC",
+      "prize": 5.0
+    }
+  ]
+}
