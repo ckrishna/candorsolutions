@@ -2,7 +2,7 @@
   "league_id": 212889,
   "league_name": "Carpe Diem",
   "max_gameweek": 13,
-  "updated_at": "2025-12-01T05:03:43Z",
+  "updated_at": "2025-12-01T05:27:55Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
@@ -142,157 +142,79 @@
       "gw": 1,
       "name": "Michael Kojo Brown",
       "points": 74,
-      "prize": 2.5
-    },
-    {
-      "gw": 1,
-      "name": "Michael Kojo Brown",
-      "points": 74,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 2,
       "name": "Himanish Raghunath",
       "points": 64,
-      "prize": 2.5
-    },
-    {
-      "gw": 2,
-      "name": "Himanish Raghunath",
-      "points": 64,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 3,
       "name": "Sushil Suvarna",
       "points": 61,
-      "prize": 2.5
-    },
-    {
-      "gw": 3,
-      "name": "Sushil Suvarna",
-      "points": 61,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 4,
       "name": "Sushil Suvarna",
       "points": 91,
-      "prize": 2.5
-    },
-    {
-      "gw": 4,
-      "name": "Sushil Suvarna",
-      "points": 91,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 5,
       "name": "Michael Kojo Brown",
       "points": 65,
-      "prize": 2.5
-    },
-    {
-      "gw": 5,
-      "name": "Michael Kojo Brown",
-      "points": 65,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 6,
       "name": "aditya shringarpure",
       "points": 79,
-      "prize": 2.5
-    },
-    {
-      "gw": 6,
-      "name": "aditya shringarpure",
-      "points": 79,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 7,
       "name": "Sricharan Murugesan",
       "points": 83,
-      "prize": 2.5
-    },
-    {
-      "gw": 7,
-      "name": "Sricharan Murugesan",
-      "points": 83,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 8,
       "name": "Sricharan Murugesan",
       "points": 77,
-      "prize": 2.5
-    },
-    {
-      "gw": 8,
-      "name": "Sricharan Murugesan",
-      "points": 77,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 9,
       "name": "Michael Kojo Brown",
       "points": 70,
-      "prize": 2.5
-    },
-    {
-      "gw": 9,
-      "name": "Michael Kojo Brown",
-      "points": 70,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 10,
       "name": "Himanish Raghunath",
       "points": 87,
-      "prize": 2.5
-    },
-    {
-      "gw": 10,
-      "name": "Himanish Raghunath",
-      "points": 87,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 11,
       "name": "Michael Kojo Brown",
       "points": 42,
-      "prize": 2.5
-    },
-    {
-      "gw": 11,
-      "name": "Michael Kojo Brown",
-      "points": 42,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 12,
       "name": "Sricharan Murugesan",
       "points": 60,
-      "prize": 2.5
-    },
-    {
-      "gw": 12,
-      "name": "Sricharan Murugesan",
-      "points": 60,
-      "prize": 2.5
+      "prize": 5.0
     },
     {
       "gw": 13,
       "name": "Michael Kojo Brown",
       "points": 74,
-      "prize": 2.5
-    },
-    {
-      "gw": 13,
-      "name": "Michael Kojo Brown",
-      "points": 74,
-      "prize": 2.5
+      "prize": 5.0
     }
   ]
 }
