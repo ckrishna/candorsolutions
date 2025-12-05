@@ -1,8 +1,8 @@
 {
   "league_id": 212889,
   "league_name": "Carpe Diem",
-  "max_gameweek": 13,
-  "updated_at": "2025-12-05T04:24:09Z",
+  "max_gameweek": 14,
+  "updated_at": "2025-12-05T21:42:53Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
@@ -56,7 +56,7 @@
       "name": "aditya shringarpure",
       "team_name": "Biosfear",
       "total_points": 779,
-      "earnings": 5.0,
+      "earnings": 10.0,
       "chips": {
         "wildcard": 1,
         "freehit": 0,
@@ -214,6 +214,12 @@
       "gw": 13,
       "name": "Michael Kojo Brown",
       "points": 74,
+      "prize": 5.0
+    },
+    {
+      "gw": 14,
+      "name": "aditya shringarpure",
+      "points": 88,
       "prize": 5.0
     }
   ]
