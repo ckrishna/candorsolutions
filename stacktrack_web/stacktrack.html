@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StackTrack</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --felt: #182518;
+      --felt-light: #1f2f1f;
+      --felt-card: rgba(255,255,255,0.04);
+      --gold: #c9a227;
+      --gold-light: #e8c457;
+      --gold-dim: #7a6010;
+      --gold-subtle: rgba(201,162,39,0.12);
+      --cream: #f0e6ce;
+      --cream-dim: #b8a882;
+      --red-neg: #e05252;
+      --green-win: #4dbd74;
+      --border: rgba(201,162,39,0.2);
+      --border-hover: rgba(201,162,39,0.5);
+      --shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background-color: var(--felt);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(30,48,28,0.9) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 90%, rgba(12,20,12,0.8) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Ccircle cx='40' cy='40' r='1'/%3E%3Ccircle cx='0' cy='0' r='1'/%3E%3Ccircle cx='80' cy='0' r='1'/%3E%3Ccircle cx='0' cy='80' r='1'/%3E%3Ccircle cx='80' cy='80' r='1'/%3E%3C/g%3E%3C/svg%3E");
+      color: var(--cream);
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 0 16px 60px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 28px 0 20px;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      text-shadow: 0 0 30px rgba(201,162,39,0.25);
+    }
+    .logo em { color: var(--cream); font-style: normal; }
+    .tagline {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      margin-top: 4px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--felt-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Form elements ── */
+    .field { margin-bottom: 14px; }
+    label {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      margin-bottom: 7px;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--cream);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1rem;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,162,39,0.1);
+    }
+    input::placeholder { color: rgba(240,230,206,0.2); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 12px 22px;
+      border-radius: 9px;
+      border: none;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      letter-spacing: 0.03em;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #160f00;
+      width: 100%;
+      padding: 15px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--gold-light);
+      box-shadow: 0 4px 20px rgba(201,162,39,0.4);
+    }
+    .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--cream-dim);
+      padding: 9px 16px;
+      font-size: 0.8rem;
+    }
+    .btn-ghost:hover { border-color: var(--border-hover); color: var(--cream); }
+
+    .btn-gold-ghost {
+      background: var(--gold-subtle);
+      border: 1px solid rgba(201,162,39,0.35);
+      color: var(--gold);
+      padding: 10px 16px;
+      font-size: 0.82rem;
+    }
+    .btn-gold-ghost:hover { background: rgba(201,162,39,0.22); }
+
+    .btn-add {
+      background: var(--gold-subtle);
+      border: 1px solid rgba(201,162,39,0.35);
+      color: var(--gold);
+      padding: 12px 20px;
+      flex-shrink: 0;
+    }
+    .btn-add:hover { background: rgba(201,162,39,0.22); }
+
+    .btn-remove {
+      background: transparent;
+      border: 1px solid rgba(220,80,80,0.3);
+      color: #e05252;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      border-radius: 7px;
+    }
+    .btn-remove:hover { background: rgba(220,80,80,0.12); }
+
+    /* ── Input row ── */
+    .input-row { display: flex; gap: 10px; }
+    .input-row input { flex: 1; min-width: 0; }
+
+    /* ── Error ── */
+    .error-msg {
+      background: rgba(220,80,80,0.12);
+      border: 1px solid rgba(220,80,80,0.35);
+      border-radius: 7px;
+      color: #e88;
+      font-size: 0.8rem;
+      padding: 8px 12px;
+      margin-top: 8px;
+      display: none;
+    }
+    .error-msg.show { display: block; animation: fadeIn 0.2s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Phase dots ── */
+    .phase-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+    .dot {
+      height: 5px;
+      border-radius: 3px;
+      transition: all 0.25s ease;
+      background: rgba(201,162,39,0.2);
+      width: 20px;
+    }
+    .dot.done { background: var(--gold-dim); width: 20px; }
+    .dot.active { background: var(--gold); width: 36px; }
+
+    /* ── Nav bar ── */
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .phase-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+    }
+
+    /* ── Stat bar ── */
+    .stat-bar {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(201,162,39,0.06);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 10px;
+      margin-bottom: 16px;
+    }
+    .stat-item { text-align: center; }
+    .stat-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      margin-bottom: 4px;
+    }
+    .stat-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1rem;
+      color: var(--gold);
+      font-weight: 500;
+    }
+    .stat-val.sm { font-size: 0.82rem; font-family: 'IBM Plex Sans', sans-serif; }
+
+    /* ── Player item (setup) ── */
+    .player-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      animation: slideUp 0.2s ease;
+    }
+    .player-item:last-child { border-bottom: none; }
+    .player-name-disp { font-size: 0.95rem; color: var(--cream); }
+
+    /* ── Player card (running) ── */
+    .player-card {
+      background: rgba(0,0,0,0.18);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      animation: slideUp 0.2s ease;
+    }
+    .player-card:last-child { margin-bottom: 0; }
+    .pc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 9px;
+    }
+    .pc-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--cream);
+    }
+    .pc-stats {
+      display: flex;
+      gap: 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--cream-dim);
+    }
+    .pc-stats .v { color: var(--cream); }
+    .rebuy-badge {
+      font-size: 0.68rem;
+      background: rgba(201,162,39,0.12);
+      color: var(--gold);
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* ── Chip preview ── */
+    .chip-preview {
+      background: rgba(201,162,39,0.05);
+      border: 1px dashed rgba(201,162,39,0.3);
+      border-radius: 8px;
+      padding: 9px 13px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--cream-dim);
+      margin-top: 8px;
+    }
+    .chip-preview span { color: var(--gold); }
+
+    /* ── Tab group ── */
+    .tab-group {
+      display: flex;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 3px;
+      margin-bottom: 14px;
+    }
+    .tab {
+      flex: 1;
+      padding: 9px;
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 7px;
+      transition: all 0.18s;
+      color: var(--cream-dim);
+      border: none;
+      background: transparent;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+    .tab.active { background: var(--gold); color: #160f00; font-weight: 600; }
+
+    /* ── Result rows ── */
+    .result-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-row:last-child { border-bottom: none; }
+    .r-name { font-size: 0.93rem; color: var(--cream); }
+    .r-amount {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.97rem;
+      font-weight: 500;
+    }
+    .r-amount.pos { color: var(--green-win); }
+    .r-amount.neg { color: var(--red-neg); }
+    .r-amount.zero { color: var(--cream-dim); }
+
+    .transfer-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .transfer-row:last-child { border-bottom: none; }
+    .t-from { font-size: 0.88rem; color: var(--red-neg); }
+    .t-arrow { font-size: 0.75rem; color: var(--cream-dim); }
+    .t-to { font-size: 0.88rem; color: var(--green-win); }
+    .t-amount {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.92rem;
+      color: var(--gold);
+      margin-left: auto;
+    }
+
+    /* ── History ── */
+    .hist-item {
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: padding-left 0.15s;
+    }
+    .hist-item:last-child { border-bottom: none; }
+    .hist-item:hover { padding-left: 5px; }
+    .hist-item:hover .hist-title { color: var(--gold); }
+    .hist-title { font-size: 0.93rem; color: var(--cream); transition: color 0.15s; }
+    .hist-meta { font-size: 0.72rem; color: var(--cream-dim); margin-top: 3px; font-family: 'IBM Plex Mono', monospace; }
+
+    /* ── Active game banner ── */
+    .active-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(201,162,39,0.07);
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      animation: fadeIn 0.3s ease;
+    }
+    .active-banner-info {}
+    .active-banner-title { font-size: 0.93rem; color: var(--cream); }
+    .active-banner-meta { font-size: 0.72rem; color: var(--cream-dim); margin-top: 3px; font-family: 'IBM Plex Mono', monospace; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: #1a2b1a;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 18px 18px 0 0;
+      padding: 26px 22px 44px;
+      width: 100%;
+      max-width: 540px;
+      transform: translateY(24px);
+      transition: transform 0.24s ease;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 0 auto 20px;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+
+    /* ── Chip counter bar ── */
+    .chip-counter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 9px;
+      padding: 11px 14px;
+      margin-bottom: 14px;
+      border: 1px solid;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .chip-counter.exact {
+      background: rgba(77,189,116,0.1);
+      border-color: rgba(77,189,116,0.4);
+      color: var(--green-win);
+    }
+    .chip-counter.over {
+      background: rgba(220,80,80,0.1);
+      border-color: rgba(220,80,80,0.4);
+      color: var(--red-neg);
+    }
+    .chip-counter.under {
+      background: rgba(220,80,80,0.1);
+      border-color: rgba(220,80,80,0.4);
+      color: var(--red-neg);
+    }
+    .chip-counter.empty {
+      background: rgba(201,162,39,0.05);
+      border-color: var(--border);
+      color: var(--cream-dim);
+    }
+    .chip-counter-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
+    .chip-counter-warn {
+      background: rgba(220,80,80,0.1);
+      border: 1px solid rgba(220,80,80,0.35);
+      border-radius: 8px;
+      color: #e88;
+      font-size: 0.79rem;
+      padding: 9px 12px;
+      margin-top: 10px;
+      line-height: 1.5;
+      display: none;
+    }
+    .chip-counter-warn.show { display: block; animation: fadeIn 0.2s ease; }
+
+    /* ── Final chips form ── */
+    .fc-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .fc-row:last-child { border-bottom: none; }
+    .fc-name { font-size: 0.9rem; color: var(--cream); flex: 1; }
+    .fc-row input { width: 110px; flex-shrink: 0; text-align: right; padding: 10px 12px; }
+
+    /* ── Misc ── */
+    .empty { text-align: center; color: var(--cream-dim); font-size: 0.83rem; padding: 18px 0; line-height: 1.6; }
+    .divider { height: 1px; background: var(--border); margin: 14px 0; }
+    .text-link {
+      font-size: 0.72rem;
+      color: var(--gold-dim);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .text-link:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="logo">Stack<em>Track</em></div>
+    <div class="tagline">Poker Night · Chip Tracker &amp; Payout Calculator</div>
+  </div>
+  <div id="root"></div>
+</div>
+
+<!-- Rebuy Modal -->
+<div class="modal-overlay" id="rebuyModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="rebuyTitle">Add Buy-In</div>
+    <div class="field">
+      <label>Cash Amount ($)</label>
+      <input type="number" id="rebuyAmount" min="1" step="1" placeholder="0" oninput="updateRebuyPreview()">
+    </div>
+    <div class="chip-preview">↳ <span id="rebuyChipCalc">0</span> chips will be granted</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="flex:1" onclick="closeRebuyModal()">Cancel</button>
+      <button class="btn btn-primary" style="flex:2" onclick="confirmRebuy()">+ Add Buy-In</button>
+    </div>
+  </div>
+</div>
+
+<!-- End Game Modal -->
+<div class="modal-overlay" id="endModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">End Game — Final Chip Counts</div>
+    <div id="chipCounterBar" class="chip-counter empty">
+      <span class="chip-counter-label">Chips entered</span>
+      <span id="chipCounterVal">0 / 0</span>
+    </div>
+    <div id="finalChipsForm"></div>
+    <div id="chipCounterWarn" class="chip-counter-warn"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="flex:1" onclick="closeEndModal()">Cancel</button>
+      <button class="btn btn-primary" style="flex:2" id="endConfirmBtn" onclick="confirmEndGame()">Calculate Results ▶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── State ──────────────────────────────────────────────────────────────────
+
+let S = {
+  view: 'home',
+  game: null,
+  history: [],
+  historyGame: null,
+  resultsTab: 'net'
+};
+
+function newGame() {
+  return {
+    title: 'Poker Night',
+    chipsPerDollar: 100,
+    initialBuyIn: 20,
+    phase: 'setup',
+    players: [],
+    createdAt: Date.now()
+  };
+}
+
+// ─── Persistence ─────────────────────────────────────────────────────────────
+
+function save() {
+  try { localStorage.setItem('st_v1', JSON.stringify(S)); } catch(e) {}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('st_v1');
+    if (raw) S = { ...S, ...JSON.parse(raw) };
+  } catch(e) {}
+}
+
+// ─── Math ────────────────────────────────────────────────────────────────────
+
+const sum = (arr, fn) => arr.reduce((a, x) => a + fn(x), 0);
+
+function potTotal(players) {
+  return sum(players, p => sum(p.buyIns, b => b.cash));
+}
+
+function chipsTotal(players) {
+  return sum(players, p => sum(p.buyIns, b => b.chips));
+}
+
+function playerInvested(p) { return sum(p.buyIns, b => b.cash); }
+function playerChips(p)    { return sum(p.buyIns, b => b.chips); }
+
+function computeNet(players) {
+  const tc = potTotal(players);
+  const tch = chipsTotal(players);
+  if (tch === 0) return players.map(p => ({ name: p.name, net: 0 }));
+
+  let positions = players.map(p => {
+    const entitlement = (p.finalChips || 0) / tch * tc;
+    const net = r2(entitlement - playerInvested(p));
+    return { name: p.name, net };
+  });
+
+  // Rounding guard
+  const drift = r2(sum(positions, p => p.net));
+  if (drift !== 0) positions[positions.length - 1].net = r2(positions[positions.length - 1].net - drift);
+  return positions;
+}
+
+function computeTransfers(positions) {
+  let debtors   = positions.filter(p => p.net < -0.001).map(p => [p.name, -p.net]);
+  let creditors = positions.filter(p => p.net >  0.001).map(p => [p.name,  p.net]);
+  debtors.sort((a, b) => b[1] - a[1]);
+  creditors.sort((a, b) => b[1] - a[1]);
+
+  const transfers = [];
+  let i = 0, j = 0;
+  while (i < debtors.length && j < creditors.length) {
+    const pay = Math.min(debtors[i][1], creditors[j][1]);
+    if (pay > 0.001) transfers.push({ from: debtors[i][0], to: creditors[j][0], amount: r2(pay) });
+    debtors[i][1] -= pay;
+    creditors[j][1] -= pay;
+    if (debtors[i][1] <= 0.001) i++;
+    if (creditors[j][1] <= 0.001) j++;
+  }
+  return transfers;
+}
+
+// ─── Formatters ──────────────────────────────────────────────────────────────
+
+const r2  = n => Math.round(n * 100) / 100;
+const $   = n => '$' + Math.abs(n).toFixed(2);
+const $$  = n => (n > 0 ? '+' : n < 0 ? '-' : '') + '$' + Math.abs(n).toFixed(2);
+const nc  = n => n > 0.001 ? 'pos' : n < -0.001 ? 'neg' : 'zero';
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const fmtDate = ts => new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+// ─── Views ───────────────────────────────────────────────────────────────────
+
+function vHome() {
+  const active = S.game && S.game.phase !== 'ended';
+  const hist = S.history.slice(0, 3);
+
+  return `
+    ${active ? `
+      <div class="active-banner">
+        <div class="active-banner-info">
+          <div class="active-banner-title">▶ ${S.game.title}</div>
+          <div class="active-banner-meta">${S.game.players.length} players · Pot ${$(potTotal(S.game.players))}</div>
+        </div>
+        <button class="btn btn-gold-ghost" onclick="resumeGame()">Continue →</button>
+      </div>
+    ` : ''}
+
+    <button class="btn btn-primary" onclick="doNewSetup()" style="margin-bottom:16px">
+      ♠&nbsp;&nbsp;New Game
+    </button>
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:${hist.length ? 16 : 0}px">
+        Past Games
+        ${S.history.length > 3 ? `<button class="text-link" onclick="goView('history')" style="margin-left:auto">View all (${S.history.length})</button>` : ''}
+      </div>
+      ${hist.length === 0
+        ? '<div class="empty">No past games yet.<br>Start your first game above ♣</div>'
+        : hist.map(g => `
+          <div class="hist-item" onclick="viewHistGame(${g.createdAt})">
+            <div class="hist-title">${g.title}</div>
+            <div class="hist-meta">${fmtDate(g.createdAt)} · ${g.players.length} players · Pot ${$(potTotal(g.players))}</div>
+          </div>
+        `).join('')}
+    </div>
+  `;
+}
+
+function vSetup() {
+  const g = S.game;
+  const chips = Math.round(g.initialBuyIn * g.chipsPerDollar);
+  return `
+    <div class="nav-bar">
+      <button class="btn btn-ghost" style="padding:8px 14px;font-size:0.78rem" onclick="goView('home')">← Home</button>
+      <span class="phase-label">Game Setup</span>
+      <div style="width:74px"></div>
+    </div>
+    <div class="phase-dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+
+    <div class="card">
+      <div class="card-title">Settings</div>
+      <div class="field">
+        <label>Game Title</label>
+        <input type="text" id="f_title" value="${esc(g.title)}" placeholder="Poker Night" oninput="gf('title',this.value)">
+      </div>
+      <div class="field">
+        <label>Initial Buy-In ($)</label>
+        <input type="number" id="f_buyin" value="${g.initialBuyIn}" min="1" step="1" oninput="gf('initialBuyIn', parseFloat(this.value)||1); refreshChipPreview()">
+      </div>
+      <div class="field">
+        <label>Chips Per Dollar</label>
+        <input type="number" id="f_cpd" value="${g.chipsPerDollar}" min="1" step="1" oninput="gf('chipsPerDollar', parseInt(this.value)||1); refreshChipPreview()">
+        <div class="chip-preview" id="chipPreview">↳ $1 = <span>${g.chipsPerDollar}</span> chips &nbsp;·&nbsp; Initial buy-in = <span>${chips.toLocaleString()}</span> chips</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Players</div>
+      <div class="input-row" style="margin-bottom:8px">
+        <input type="text" id="newName" placeholder="Enter player name" onkeydown="if(event.key==='Enter')addPlayer()">
+        <button class="btn btn-add" onclick="addPlayer()">Add</button>
+      </div>
+      <div id="nameErr" class="error-msg">A player with that name already exists.</div>
+      <div id="playerList">
+        ${g.players.length === 0
+          ? '<div class="empty">No players yet — add at least one to start</div>'
+          : g.players.map(p => `
+            <div class="player-item">
+              <span class="player-name-disp">♣ ${esc(p.name)}</span>
+              <button class="btn btn-remove" onclick="removePlayer('${p.id}')">Remove</button>
+            </div>
+          `).join('')}
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="startGame()" ${g.players.length === 0 ? 'disabled' : ''}>
+      ♠&nbsp;&nbsp;Start Game &nbsp;(${g.players.length} player${g.players.length !== 1 ? 's' : ''})
+    </button>
+  `;
+}
+
+function vRunning() {
+  const g = S.game;
+  const pot = potTotal(g.players);
+  const tch = chipsTotal(g.players);
+  return `
+    <div class="nav-bar">
+      <button class="btn btn-ghost" style="padding:8px 14px;font-size:0.78rem" onclick="goView('home')">← Home</button>
+      <span class="phase-label">In Progress</span>
+      <button class="btn btn-gold-ghost" style="font-size:0.78rem;padding:8px 14px" onclick="openEndModal()">End Game ⚑</button>
+    </div>
+    <div class="phase-dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
+
+    <div class="stat-bar">
+      <div class="stat-item">
+        <div class="stat-label">Game</div>
+        <div class="stat-val sm">${esc(g.title)}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Total Pot</div>
+        <div class="stat-val">${$(pot)}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Chips in Play</div>
+        <div class="stat-val">${tch.toLocaleString()}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Players</div>
+      ${g.players.map(p => {
+        const invested = playerInvested(p);
+        const chips = playerChips(p);
+        const rebuys = p.buyIns.length - 1;
+        return `
+          <div class="player-card">
+            <div class="pc-header">
+              <span class="pc-name">${esc(p.name)}</span>
+              <button class="btn btn-gold-ghost" style="padding:7px 13px;font-size:0.78rem" onclick="openRebuyModal('${p.id}')">+ Rebuy</button>
+            </div>
+            <div class="pc-stats">
+              <span>In: <span class="v">${$(invested)}</span></span>
+              <span>Chips: <span class="v">${chips.toLocaleString()}</span></span>
+              ${rebuys > 0 ? `<span class="rebuy-badge">${rebuys} rebuy${rebuys > 1 ? 's' : ''}</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function vResults(game) {
+  const g = game || S.game;
+  const isHist = !!game;
+  const positions = computeNet(g.players);
+  const transfers = computeTransfers(positions);
+  const pot = potTotal(g.players);
+  const tab = S.resultsTab;
+
+  return `
+    <div class="nav-bar">
+      <button class="btn btn-ghost" style="padding:8px 14px;font-size:0.78rem" onclick="${isHist ? "goView('history')" : "goView('home')"}">← ${isHist ? 'History' : 'Home'}</button>
+      <span class="phase-label">${isHist ? 'Past Game' : 'Results'}</span>
+      ${!isHist ? `<button class="btn btn-gold-ghost" style="font-size:0.75rem;padding:7px 12px" onclick="doNewFromResults()">New Game</button>` : '<div style="width:80px"></div>'}
+    </div>
+    ${!isHist ? '<div class="phase-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div></div>' : ''}
+
+    <div class="stat-bar">
+      <div class="stat-item">
+        <div class="stat-label">Game</div>
+        <div class="stat-val sm">${esc(g.title)}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Total Pot</div>
+        <div class="stat-val">${$(pot)}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Players</div>
+        <div class="stat-val">${g.players.length}</div>
+      </div>
+    </div>
+
+    <div class="tab-group">
+      <button class="tab ${tab === 'net' ? 'active' : ''}" onclick="setTab('net')">Net Positions</button>
+      <button class="tab ${tab === 'settle' ? 'active' : ''}" onclick="setTab('settle')">Settlements</button>
+    </div>
+
+    ${tab === 'net' ? `
+      <div class="card">
+        ${[...positions].sort((a,b) => b.net - a.net).map(pos => `
+          <div class="result-row">
+            <span class="r-name">${esc(pos.name)}</span>
+            <span class="r-amount ${nc(pos.net)}">${$$(pos.net)}</span>
+          </div>
+        `).join('')}
+      </div>
+    ` : `
+      <div class="card">
+        ${transfers.length === 0
+          ? '<div class="empty">No transfers needed —<br>everyone is even! 🎉</div>'
+          : transfers.map(t => `
+            <div class="transfer-row">
+              <span class="t-from">${esc(t.from)}</span>
+              <span class="t-arrow">→</span>
+              <span class="t-to">${esc(t.to)}</span>
+              <span class="t-amount">${$(t.amount)}</span>
+            </div>
+          `).join('')}
+      </div>
+    `}
+
+    <div class="card">
+      <div class="card-title">Buy-In Details</div>
+      ${g.players.map(p => `
+        <div class="result-row">
+          <span class="r-name">${esc(p.name)}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.77rem;color:var(--cream-dim)">
+            ${$(playerInvested(p))} in &nbsp;·&nbsp; ${(p.finalChips||0).toLocaleString()} chips out
+          </span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function vHistory() {
+  return `
+    <div class="nav-bar">
+      <button class="btn btn-ghost" style="padding:8px 14px;font-size:0.78rem" onclick="goView('home')">← Home</button>
+      <span class="phase-label">Game History</span>
+      <div style="width:74px"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">All Games</div>
+      ${S.history.length === 0
+        ? '<div class="empty">No past games yet.</div>'
+        : S.history.map(g => `
+          <div class="hist-item" onclick="viewHistGame(${g.createdAt})">
+            <div class="hist-title">${esc(g.title)}</div>
+            <div class="hist-meta">${fmtDate(g.createdAt)} · ${g.players.length} players · Pot ${$(potTotal(g.players))}</div>
+          </div>
+        `).join('')}
+    </div>
+  `;
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
+
+function render() {
+  const root = document.getElementById('root');
+  switch (S.view) {
+    case 'setup':      root.innerHTML = vSetup();   break;
+    case 'running':    root.innerHTML = vRunning();  break;
+    case 'results':    root.innerHTML = vResults();  break;
+    case 'history':    root.innerHTML = vHistory();  break;
+    case 'historyGame':root.innerHTML = vResults(S.historyGame); break;
+    default:           root.innerHTML = vHome();
+  }
+}
+
+// ─── Actions ─────────────────────────────────────────────────────────────────
+
+function goView(v) { S.view = v; save(); render(); }
+
+function resumeGame() {
+  S.view = S.game.phase === 'ended' ? 'results' : 'running';
+  save(); render();
+}
+
+function doNewSetup() {
+  S.game = newGame();
+  S.view = 'setup';
+  save(); render();
+}
+
+function doNewFromResults() {
+  const names = S.game.players.map(p => p.name);
+  S.game = newGame();
+  S.game.players = names.map(n => ({ id: uid(), name: n, buyIns: [], finalChips: null }));
+  S.view = 'setup';
+  save(); render();
+}
+
+function viewHistGame(ts) {
+  S.historyGame = S.history.find(g => g.createdAt === ts);
+  S.view = 'historyGame';
+  save(); render();
+}
+
+// Game field update
+function gf(field, value) {
+  S.game[field] = value;
+  save();
+}
+
+function refreshChipPreview() {
+  const el = document.getElementById('chipPreview');
+  if (!el) return;
+  const chips = Math.round(S.game.initialBuyIn * S.game.chipsPerDollar);
+  el.innerHTML = `↳ $1 = <span>${S.game.chipsPerDollar}</span> chips &nbsp;·&nbsp; Initial buy-in = <span>${chips.toLocaleString()}</span> chips`;
+}
+
+function addPlayer() {
+  const input = document.getElementById('newName');
+  const name  = input.value.trim();
+  const errEl = document.getElementById('nameErr');
+  if (!name) return;
+
+  // Case-insensitive duplicate check
+  if (S.game.players.some(p => p.name.toLowerCase() === name.toLowerCase())) {
+    errEl.classList.add('show');
+    input.select();
+    return;
+  }
+  errEl.classList.remove('show');
+  S.game.players.push({ id: uid(), name, buyIns: [], finalChips: null });
+  input.value = '';
+  save(); render();
+  setTimeout(() => document.getElementById('newName')?.focus(), 40);
+}
+
+function removePlayer(id) {
+  S.game.players = S.game.players.filter(p => p.id !== id);
+  save(); render();
+}
+
+function startGame() {
+  if (!S.game.players.length) return;
+  const chips = Math.round(S.game.initialBuyIn * S.game.chipsPerDollar);
+  S.game.players = S.game.players.map(p => ({
+    ...p,
+    buyIns: [{ cash: r2(S.game.initialBuyIn), chips, time: Date.now() }],
+    finalChips: null
+  }));
+  S.game.phase = 'running';
+  S.view = 'running';
+  save(); render();
+}
+
+function setTab(t) { S.resultsTab = t; render(); }
+
+// ─── Rebuy modal ──────────────────────────────────────────────────────────────
+
+let _rebuyId = null;
+
+function openRebuyModal(id) {
+  _rebuyId = id;
+  const p = S.game.players.find(x => x.id === id);
+  document.getElementById('rebuyTitle').textContent = `Add Buy-In — ${p.name}`;
+  document.getElementById('rebuyAmount').value = '';
+  document.getElementById('rebuyChipCalc').textContent = '0';
+  document.getElementById('rebuyModal').classList.add('open');
+  setTimeout(() => document.getElementById('rebuyAmount').focus(), 280);
+}
+
+function closeRebuyModal() {
+  document.getElementById('rebuyModal').classList.remove('open');
+  _rebuyId = null;
+}
+
+function updateRebuyPreview() {
+  const amt = parseFloat(document.getElementById('rebuyAmount').value) || 0;
+  document.getElementById('rebuyChipCalc').textContent = Math.round(amt * S.game.chipsPerDollar).toLocaleString();
+}
+
+function confirmRebuy() {
+  const amt = parseFloat(document.getElementById('rebuyAmount').value);
+  if (!amt || amt <= 0) return;
+  const chips = Math.round(amt * S.game.chipsPerDollar);
+  const p = S.game.players.find(x => x.id === _rebuyId);
+  p.buyIns.push({ cash: r2(amt), chips, time: Date.now() });
+  save(); closeRebuyModal(); render();
+}
+
+// ─── End game modal ───────────────────────────────────────────────────────────
+
+function openEndModal() {
+  document.getElementById('finalChipsForm').innerHTML = S.game.players.map(p => `
+    <div class="fc-row">
+      <span class="fc-name">${esc(p.name)}</span>
+      <input type="number" id="fc_${p.id}" min="0" step="1"
+        value="${p.finalChips != null ? p.finalChips : ''}"
+        placeholder="0" oninput="updateChipCounter()">
+    </div>
+  `).join('');
+  document.getElementById('chipCounterWarn').classList.remove('show');
+  updateChipCounter();
+  document.getElementById('endModal').classList.add('open');
+}
+
+function updateChipCounter() {
+  const total = chipsTotal(S.game.players);
+  const entered = S.game.players.reduce((sum, p) => {
+    const el = document.getElementById(`fc_${p.id}`);
+    return sum + (el ? (parseInt(el.value) || 0) : 0);
+  }, 0);
+
+  const bar    = document.getElementById('chipCounterBar');
+  const valEl  = document.getElementById('chipCounterVal');
+  const diff   = entered - total;
+
+  valEl.textContent = `${entered.toLocaleString()} / ${total.toLocaleString()}`;
+  bar.className = 'chip-counter ' + (entered === 0 && total > 0 ? 'empty' : diff === 0 ? 'exact' : diff > 0 ? 'over' : 'under');
+
+  // Clear stale warning when user is still editing
+  _endConfirmPending = false;
+  const btn = document.getElementById('endConfirmBtn');
+  if (btn) btn.textContent = 'Calculate Results ▶';
+  document.getElementById('chipCounterWarn').classList.remove('show');
+}
+
+function closeEndModal() {
+  document.getElementById('endModal').classList.remove('open');
+  _endConfirmPending = false;
+  const btn = document.getElementById('endConfirmBtn');
+  if (btn) btn.textContent = 'Calculate Results ▶';
+}
+
+let _endConfirmPending = false;
+
+function confirmEndGame() {
+  const total = chipsTotal(S.game.players);
+  const entered = S.game.players.reduce((sum, p) => {
+    const el = document.getElementById(`fc_${p.id}`);
+    return sum + (el ? (parseInt(el.value) || 0) : 0);
+  }, 0);
+
+  const diff = entered - total;
+
+  // If there's a mismatch and we haven't warned yet, show warning and wait for second tap
+  if (diff !== 0 && !_endConfirmPending) {
+    const warnEl = document.getElementById('chipCounterWarn');
+    const dir    = diff > 0 ? 'over' : 'under';
+    const absDiff = Math.abs(diff).toLocaleString();
+    warnEl.innerHTML = `
+      ⚠️ Chip count is <strong>${absDiff} chips ${dir}</strong> (entered ${entered.toLocaleString()}, expected ${total.toLocaleString()}).<br>
+      This will affect payout accuracy. <strong>Tap again to proceed anyway.</strong>
+    `;
+    warnEl.classList.add('show');
+    document.getElementById('endConfirmBtn').textContent = 'Proceed Anyway ▶';
+    _endConfirmPending = true;
+    return;
+  }
+
+  // Reset state
+  _endConfirmPending = false;
+
+  // Commit final chips
+  S.game.players.forEach(p => {
+    const el = document.getElementById(`fc_${p.id}`);
+    p.finalChips = el ? (parseInt(el.value) || 0) : 0;
+  });
+  S.game.phase = 'ended';
+
+  // Upsert into history
+  const idx = S.history.findIndex(h => h.createdAt === S.game.createdAt);
+  const snap = JSON.parse(JSON.stringify(S.game));
+  if (idx >= 0) S.history[idx] = snap;
+  else S.history.unshift(snap);
+
+  save(); closeEndModal();
+  S.view = 'results';
+  render();
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Close modals on overlay click
+document.getElementById('rebuyModal').addEventListener('click', function(e) {
+  if (e.target === this) closeRebuyModal();
+});
+document.getElementById('endModal').addEventListener('click', function(e) {
+  if (e.target === this) closeEndModal();
+});
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+
+load();
+if (!S.view) S.view = 'home';
+render();
+</script>
+</body>
+</html>
