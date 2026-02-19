@@ -2,7 +2,7 @@
   "league_id": 212889,
   "league_name": "Carpe Diem",
   "max_gameweek": 26,
-  "updated_at": "2026-02-19T21:33:10Z",
+  "updated_at": "2026-02-19T21:48:49Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
@@ -20,7 +20,7 @@
       "name": "Sushil Suvarna",
       "team_name": "Suberox",
       "total_points": 1503,
-      "earnings": 47.5,
+      "earnings": 40.0,
       "chips": {
         "wildcard": 1,
         "freehit": 1,
@@ -32,7 +32,7 @@
       "name": "Vineet Dhiman",
       "team_name": "Spursy Spurs",
       "total_points": 1485,
-      "earnings": 10.0,
+      "earnings": 15.0,
       "chips": {
         "wildcard": 0,
         "freehit": 0,
@@ -68,7 +68,7 @@
       "name": "Sricharan Murugesan",
       "team_name": "Gobi FC",
       "total_points": 1462,
-      "earnings": 25.0,
+      "earnings": 27.5,
       "chips": {
         "wildcard": 1,
         "freehit": 1,
@@ -152,14 +152,14 @@
     },
     {
       "gw": 3,
-      "name": "Sushil Suvarna",
-      "points": 61,
+      "name": "Vineet Dhiman",
+      "points": 58,
       "prize": 5.0
     },
     {
       "gw": 4,
       "name": "Sushil Suvarna",
-      "points": 91,
+      "points": 87,
       "prize": 5.0
     },
     {
@@ -285,7 +285,7 @@
     {
       "gw": 24,
       "name": "Sushil Suvarna",
-      "points": 80,
+      "points": 76,
       "prize": 5.0
     },
     {
@@ -296,15 +296,9 @@
     },
     {
       "gw": 26,
-      "name": "Sushil Suvarna",
-      "points": 73,
-      "prize": 2.5
-    },
-    {
-      "gw": 26,
       "name": "Sricharan Murugesan",
       "points": 73,
-      "prize": 2.5
+      "prize": 5.0
     }
   ]
 }
