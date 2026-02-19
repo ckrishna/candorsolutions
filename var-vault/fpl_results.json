@@ -1,13 +1,13 @@
 {
   "league_id": 212889,
   "league_name": "Carpe Diem",
-  "max_gameweek": 25,
-  "updated_at": "2026-02-17T07:12:32Z",
+  "max_gameweek": 26,
+  "updated_at": "2026-02-19T19:40:43Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
       "team_name": "Da Movement",
-      "total_points": 1537,
+      "total_points": 1562,
       "earnings": 95.0,
       "chips": {
         "wildcard": 1,
@@ -19,8 +19,8 @@
     {
       "name": "Sushil Suvarna",
       "team_name": "Suberox",
-      "total_points": 1492,
-      "earnings": 45.0,
+      "total_points": 1503,
+      "earnings": 47.5,
       "chips": {
         "wildcard": 1,
         "freehit": 1,
@@ -31,7 +31,7 @@
     {
       "name": "Vineet Dhiman",
       "team_name": "Spursy Spurs",
-      "total_points": 1473,
+      "total_points": 1485,
       "earnings": 10.0,
       "chips": {
         "wildcard": 0,
@@ -43,7 +43,7 @@
     {
       "name": "Himanish Raghunath",
       "team_name": "Nish's Team",
-      "total_points": 1463,
+      "total_points": 1482,
       "earnings": 20.0,
       "chips": {
         "wildcard": 1,
@@ -55,7 +55,7 @@
     {
       "name": "aditya shringarpure",
       "team_name": "Biosfear",
-      "total_points": 1456,
+      "total_points": 1471,
       "earnings": 15.0,
       "chips": {
         "wildcard": 2,
@@ -67,8 +67,8 @@
     {
       "name": "Sricharan Murugesan",
       "team_name": "Gobi FC",
-      "total_points": 1435,
-      "earnings": 22.5,
+      "total_points": 1462,
+      "earnings": 25.0,
       "chips": {
         "wildcard": 1,
         "freehit": 1,
@@ -79,7 +79,7 @@
     {
       "name": "Vinay Swaminathan",
       "team_name": "Boltzman",
-      "total_points": 1363,
+      "total_points": 1370,
       "earnings": 0.0,
       "chips": {
         "wildcard": 0,
@@ -91,7 +91,7 @@
     {
       "name": "Chetan Bk",
       "team_name": "Benficaaaaaaa",
-      "total_points": 1345,
+      "total_points": 1350,
       "earnings": 15.0,
       "chips": {
         "wildcard": 1,
@@ -103,7 +103,7 @@
     {
       "name": "Devin Jackson",
       "team_name": "2 Gorls 1 Klorp",
-      "total_points": 1331,
+      "total_points": 1335,
       "earnings": 5.0,
       "chips": {
         "wildcard": 1,
@@ -127,7 +127,7 @@
     {
       "name": "Sunil Mathew",
       "team_name": "Team",
-      "total_points": 1115,
+      "total_points": 1131,
       "earnings": 5.0,
       "chips": {
         "wildcard": 0,
@@ -293,6 +293,18 @@
       "name": "Devin Jackson",
       "points": 77,
       "prize": 5.0
+    },
+    {
+      "gw": 26,
+      "name": "Sushil Suvarna",
+      "points": 73,
+      "prize": 2.5
+    },
+    {
+      "gw": 26,
+      "name": "Sricharan Murugesan",
+      "points": 73,
+      "prize": 2.5
     }
   ]
 }
