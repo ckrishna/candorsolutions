@@ -1,8 +1,8 @@
 {
   "league_id": 212889,
   "league_name": "Carpe Diem",
-  "max_gameweek": 26,
-  "updated_at": "2026-02-24T05:57:21Z",
+  "max_gameweek": 27,
+  "updated_at": "2026-02-24T16:22:13Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
@@ -20,7 +20,7 @@
       "name": "Sushil Suvarna",
       "team_name": "Suberox",
       "total_points": 1549,
-      "earnings": 40.0,
+      "earnings": 45.0,
       "chips": {
         "wildcard": 1,
         "freehit": 1,
@@ -298,6 +298,12 @@
       "gw": 26,
       "name": "Sricharan Murugesan",
       "points": 73,
+      "prize": 5.0
+    },
+    {
+      "gw": 27,
+      "name": "Sushil Suvarna",
+      "points": 46,
       "prize": 5.0
     }
   ]
