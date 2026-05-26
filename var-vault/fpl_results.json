@@ -1,133 +1,133 @@
 {
   "league_id": 212889,
   "league_name": "Carpe Diem",
-  "max_gameweek": 34,
-  "updated_at": "2026-04-30T02:08:54Z",
+  "max_gameweek": 38,
+  "updated_at": "2026-05-26T04:51:44Z",
   "players": [
     {
       "name": "Michael Kojo Brown",
       "team_name": "Da Movement",
-      "total_points": 2102,
+      "total_points": 2378,
       "earnings": 115.0,
       "chips": {
         "wildcard": 2,
         "freehit": 2,
         "bboost": 2,
-        "3xc": 1
+        "3xc": 2
       }
     },
     {
       "name": "Himanish Raghunath",
       "team_name": "Nish's Team",
-      "total_points": 2021,
+      "total_points": 2299,
       "earnings": 60.0,
       "chips": {
         "wildcard": 2,
         "freehit": 2,
-        "bboost": 1,
-        "3xc": 1
+        "bboost": 2,
+        "3xc": 2
       }
     },
     {
       "name": "Sushil Suvarna",
       "team_name": "Suberox",
-      "total_points": 1996,
+      "total_points": 2237,
       "earnings": 25.0,
       "chips": {
-        "wildcard": 1,
+        "wildcard": 2,
         "freehit": 2,
-        "bboost": 1,
-        "3xc": 1
+        "bboost": 2,
+        "3xc": 2
       }
     },
     {
       "name": "Vineet Dhiman",
       "team_name": "Spursy Spurs",
-      "total_points": 1947,
-      "earnings": 10.0,
+      "total_points": 2220,
+      "earnings": 15.0,
       "chips": {
-        "wildcard": 0,
+        "wildcard": 1,
         "freehit": 1,
-        "bboost": 0,
+        "bboost": 1,
         "3xc": 1
       }
     },
     {
       "name": "aditya shringarpure",
       "team_name": "Biosfear",
-      "total_points": 1919,
-      "earnings": 15.0,
+      "total_points": 2212,
+      "earnings": 20.0,
       "chips": {
         "wildcard": 2,
-        "freehit": 1,
-        "bboost": 1,
-        "3xc": 1
+        "freehit": 2,
+        "bboost": 2,
+        "3xc": 2
       }
     },
     {
       "name": "Sricharan Murugesan",
       "team_name": "Gobi FC",
-      "total_points": 1879,
-      "earnings": 27.5,
+      "total_points": 2156,
+      "earnings": 32.5,
       "chips": {
         "wildcard": 2,
         "freehit": 1,
         "bboost": 2,
-        "3xc": 1
+        "3xc": 2
       }
     },
     {
       "name": "Vinay Swaminathan",
       "team_name": "Boltzman",
-      "total_points": 1820,
-      "earnings": 0.0,
+      "total_points": 2101,
+      "earnings": 5.0,
       "chips": {
-        "wildcard": 0,
+        "wildcard": 1,
         "freehit": 2,
         "bboost": 1,
-        "3xc": 1
+        "3xc": 2
       }
     },
     {
       "name": "Chetan Bk",
       "team_name": "Benficaaaaaaa",
-      "total_points": 1725,
+      "total_points": 2009,
       "earnings": 15.0,
       "chips": {
         "wildcard": 1,
         "freehit": 1,
-        "bboost": 1,
-        "3xc": 1
+        "bboost": 2,
+        "3xc": 2
       }
     },
     {
       "name": "Devin Jackson",
       "team_name": "2 Gorls 1 Klorp",
-      "total_points": 1722,
+      "total_points": 1968,
       "earnings": 5.0,
       "chips": {
         "wildcard": 1,
         "freehit": 0,
-        "bboost": 1,
+        "bboost": 2,
         "3xc": 1
       }
     },
     {
       "name": "nihar namjoshi",
       "team_name": "4-5-2",
-      "total_points": 1607,
+      "total_points": 1821,
       "earnings": 2.5,
       "chips": {
-        "wildcard": 1,
+        "wildcard": 2,
         "freehit": 2,
-        "bboost": 1,
-        "3xc": 1
+        "bboost": 2,
+        "3xc": 2
       }
     },
     {
       "name": "Sunil Mathew",
       "team_name": "Team",
-      "total_points": 1495,
+      "total_points": 1660,
       "earnings": 5.0,
       "chips": {
         "wildcard": 0,
@@ -346,6 +346,30 @@
       "gw": 34,
       "name": "Himanish Raghunath",
       "points": 75,
+      "prize": 5.0
+    },
+    {
+      "gw": 35,
+      "name": "Vineet Dhiman",
+      "points": 68,
+      "prize": 5.0
+    },
+    {
+      "gw": 36,
+      "name": "Sricharan Murugesan",
+      "points": 97,
+      "prize": 5.0
+    },
+    {
+      "gw": 37,
+      "name": "Vinay Swaminathan",
+      "points": 90,
+      "prize": 5.0
+    },
+    {
+      "gw": 38,
+      "name": "aditya shringarpure",
+      "points": 83,
       "prize": 5.0
     }
   ]
